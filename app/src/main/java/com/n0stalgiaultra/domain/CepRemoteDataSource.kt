@@ -5,5 +5,10 @@ import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.data.remote.CepResponseItem
 
 interface CepRemoteDataSource {
-    suspend fun getRemoteCep(): List<CepDto>
+    suspend fun getRemoteCep(
+        state: String,
+        city: String,
+        street: String): List<CepDto>
+
+    suspend fun getCepData(cep: String): CepDto
 }

@@ -9,26 +9,15 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class CepRemoteDataSourceImpl(private val api: CepAPI): CepRemoteDataSource {
-    override suspend fun getRemoteCep(): List<CepDto> = suspendCoroutine {
+
+    override suspend fun getRemoteCep(
+        state: String,
+        city: String,
+        street: String): List<CepDto> = suspendCoroutine {
         continuation ->
-            val call: Call<List<CepDto>> = api.getData()
+            val call: Call<List<CepDto>> = api.getData(state, city, street)
             call.enqueue(
                 object: Callback<List<CepDto>>{
-                    //                    override fun onResponse(call: Call<CepResponse>, response: Response<CepResponse>) {
-//                        val cep = response.body()
-//                        Log.d("remote response", cep.toString())
-//                        if(cep != null){
-//                            continuation.resume(
-//                                cep.cepResponse.map { it.item }
-//                            )
-//                        }
-//                        Log.d("remote response", "Success")
-//                    }
-//
-//                    override fun onFailure(call: Call<CepResponse>, t: Throwable) {
-//                        Log.e("remote response", t.message ?: "")
-//                        continuation.resume(emptyList())
-//                    }
                     override fun onResponse(
                         call: Call<List<CepDto>>,
                         response: Response<List<CepDto>>
@@ -50,5 +39,32 @@ class CepRemoteDataSourceImpl(private val api: CepAPI): CepRemoteDataSource {
 
                 }
             )
-    }
+        }
+
+    override suspend fun getCepData(cep: String): CepDto = suspendCoroutine {
+            continuation ->
+            val call: Call<CepDto> = api.getData(cep)
+            call.enqueue(
+                object: Callback<CepDto>{
+                    override fun onResponse(
+                        call: Call<CepDto>,
+                        response: Response<CepDto>
+                    ) {
+                        val cep = response.body()
+                        Log.d("remote response", cep.toString())
+                        if(cep != null){
+                            continuation.resume(
+                                cep
+                            )
+                        }
+                        Log.d("remote response", "Success")
+                    }
+
+                    override fun onFailure(call: Call<CepDto>, t: Throwable) {
+                        Log.e("remote response", t.message ?: "")
+                    }
+
+                }
+            )
+        }
 }
