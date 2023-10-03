@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.n0stalgiaultra.view.activities.BuscaPorCEPActivity">
+    tools:context="com.n0stalgiaultra.view.activities.BuscaPorCEPActivity"
+    >
 
     <TextView
         android:id="@+id/tv_digiteCep"
@@ -15,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".2" />
+        app:layout_constraintVertical_bias=".35" />
 
     <EditText
         android:id="@+id/ed_digiteCep"
@@ -41,13 +42,14 @@
         android:layout_height="wrap_content"
         app:cornerRadius = "5dp"
         android:text="Buscar informações"
-
+        android:textSize="@dimen/_15sdp"
+        android:padding="@dimen/_10sdp"
         android:layout_margin="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_digiteCep"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.15" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
