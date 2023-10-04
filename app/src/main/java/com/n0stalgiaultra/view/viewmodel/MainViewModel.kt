@@ -16,4 +16,12 @@ class MainViewModel(private val repository: CepRepository): ViewModel() {
         _cepList.value = repository.getRemoteCep(state, city, street)
         Log.d("ViewModel", "${_cepList.value!!.size}")
     }
+
+    suspend fun getCepData(){
+        /*TODO: Recuperar dados de um CEP*/
+    }
+
+    fun favoriteCep(){
+        /*TODO: Salvar os endereços salvos no banco local*/
+    }
 }

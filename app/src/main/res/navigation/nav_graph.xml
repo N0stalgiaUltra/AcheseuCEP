@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainScreen">
+
+    <fragment
+        android:id="@+id/advancedSearchCep"
+        android:name="com.n0stalgiaultra.view.fragments.AdvancedSearchCep"
+        android:label="fragment_advanced_search_cep"
+        tools:layout="@layout/fragment_advanced_search_cep" >
+        <action
+            android:id="@+id/action_advancedSearchCep_to_cepResult"
+            app:destination="@id/cepResult" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchCep"
+        android:name="com.n0stalgiaultra.view.fragments.SearchCep"
+        android:label="fragment_search_cep"
+        tools:layout="@layout/fragment_search_cep" >
+        <action
+            android:id="@+id/action_searchCep_to_cepResult"
+            app:destination="@id/cepResult" />
+    </fragment>
+    <fragment
+        android:id="@+id/cepResult"
+        android:name="com.n0stalgiaultra.view.fragments.CepResult"
+        android:label="fragment_cep_result"
+        tools:layout="@layout/fragment_cep_result" />
+    <fragment
+        android:id="@+id/mainScreen"
+        android:name="com.n0stalgiaultra.view.fragments.MainScreen"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreen_to_advancedSearchCep"
+            app:destination="@id/advancedSearchCep" />
+        <action
+            android:id="@+id/action_mainScreen_to_searchCep"
+            app:destination="@id/searchCep" />
+    </fragment>
+</navigation>
