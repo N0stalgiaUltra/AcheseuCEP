@@ -47,19 +47,9 @@ class AdvancedSearchCep : Fragment() {
             CoroutineScope(Dispatchers.Main).launch {
                 mainViewModel.getCepList(state, city, street)
             }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mainViewModel.cepList.observe(this){
-            items ->
-            if(items.isNotEmpty()){
-                binding.btnBuscaCEP.setOnClickListener {
-                    findNavController().navigate(R.id.cepResult)
-                }
-            }
+            findNavController().navigate(R.id.action_advancedSearchCep_to_cepResult)
 
         }
     }
+
 }

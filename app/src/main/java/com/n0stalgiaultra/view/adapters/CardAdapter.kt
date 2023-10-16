@@ -1,5 +1,6 @@
 package com.n0stalgiaultra.view.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -33,6 +34,7 @@ class CardAdapter: RecyclerView.Adapter<CardViewHolder>() {
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val data = _data[position]
+        Log.d("CardAdapter", data.logradouro)
         holder.bindData(data)
     }
 }

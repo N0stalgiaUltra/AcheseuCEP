@@ -34,15 +34,15 @@ class CepResult : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mainViewModel.cepList.observe(viewLifecycleOwner){
-                items ->
-            if(items.isNotEmpty()){
-                cardAdapter.clearData()
-                cardAdapter.setData(items)
-                setupRecyclerView()
-            }
-            else{
-                Log.d("CepResult", "Lista Vazia")
-            }
+            items ->
+                if(items.isNotEmpty()){
+                    cardAdapter.clearData()
+                    cardAdapter.setData(items)
+                    setupRecyclerView()
+                }
+                else{
+                    Log.d("CepResult", "Lista Vazia")
+                }
         }
     }
 

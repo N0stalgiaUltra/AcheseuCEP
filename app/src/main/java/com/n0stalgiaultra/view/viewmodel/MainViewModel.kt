@@ -17,8 +17,10 @@ class MainViewModel(private val repository: CepRepository): ViewModel() {
         Log.d("ViewModel", "${_cepList.value!!.size}")
     }
 
-    suspend fun getCepData(){
-        /*TODO: Recuperar dados de um CEP*/
+    suspend fun getCepData(cep: String){
+        _cepList.value = emptyList()
+        _cepList.value = listOf(repository.getCepData(cep))
+        Log.d("ViewModel", "${_cepList.value!!.size}")
     }
 
     fun favoriteCep(){

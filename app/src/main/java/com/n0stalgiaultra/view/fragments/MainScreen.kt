@@ -31,11 +31,11 @@ class MainScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBuscaavancadaocep.setOnClickListener {
-            findNavController().navigate(R.id.advancedSearchCep)
+            findNavController().navigate(R.id.action_mainScreen_to_advancedSearchCep)
         }
 
         binding.btnBuscapadraocep.setOnClickListener {
-            findNavController().navigate(R.id.searchCep)
+            findNavController().navigate(R.id.action_mainScreen_to_searchCep)
         }
     }
 
