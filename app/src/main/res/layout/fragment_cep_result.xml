@@ -6,28 +6,59 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.n0stalgiaultra.view.fragments.CepResult">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:text="@string/busca_aviso"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        android:layout_margin="@dimen/_15sdp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="@string/busca_aviso" />
+    </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainRecView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".9"
         app:layout_constraintStart_toStartOf="parent"
+>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainRecView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".2" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".2"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/loading_screen"
+        android:visibility="visible"
+        >
+
+        <include
+            layout="@layout/loading_screen"
+            />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,7 @@ class CepResult : Fragment() {
                     cardAdapter.clearData()
                     cardAdapter.setData(items)
                     setupRecyclerView()
+                    binding.loadingScreen.visibility = View.INVISIBLE
                 }
                 else{
                     Log.d("CepResult", "Lista Vazia")

@@ -17,17 +17,18 @@
             android:id="@+id/card_street"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+
+
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:maxLines="2"
             android:text="Avenida Presidente Vargas"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="@dimen/_17sdp"
-            android:maxLines="2"
-
-
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="@dimen/_10sdp"
-            />
+            android:textSize="@dimen/_17sdp" />
 
         <TextView
             android:id="@+id/card_cep"
