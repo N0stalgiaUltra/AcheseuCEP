@@ -17,9 +17,12 @@
             android:id="@+id/card_street"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rua Lorem Ipsum"
+            android:text="Avenida Presidente Vargas"
             android:textColor="@color/white"
-            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold"
+            android:textSize="@dimen/_17sdp"
+            android:maxLines="2"
+
 
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
@@ -75,12 +78,14 @@
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/baseline_star_border_24"
-            android:background="@android:color/transparent"
-
             android:layout_alignParentEnd="true"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_alignParentBottom="true"
 
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_star_border_24"
+            android:contentDescription="Favorite adress button"
             />
     </RelativeLayout>
 
