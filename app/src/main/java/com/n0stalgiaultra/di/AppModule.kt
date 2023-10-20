@@ -1,8 +1,13 @@
 package com.n0stalgiaultra.di
 
+import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.n0stalgiaultra.data.local.AppDatabase
+import com.n0stalgiaultra.data.local.CepDao
+import com.n0stalgiaultra.data.local.CepLocalDataSourceImpl
 import com.n0stalgiaultra.data.remote.CepAPI
 import com.n0stalgiaultra.data.remote.CepRemoteDataSourceImpl
+import com.n0stalgiaultra.domain.CepLocalDataSource
 import com.n0stalgiaultra.domain.CepRemoteDataSource
 import com.n0stalgiaultra.domain.CepRepository
 import com.n0stalgiaultra.domain.CepRepositoryImpl
@@ -11,6 +16,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.scope.get
 import org.koin.dsl.module
@@ -59,15 +65,37 @@ val apiModule = module {
     }
 }
 
+val databaseModule = module {
+    single {
+        Room.databaseBuilder(
+            context = androidContext(),
+            klass = AppDatabase::class.java,
+            name = AppDatabase.DATABASE_NAME
+            ).build()
+    }
+
+    single {
+        get<AppDatabase>().getDao()
+    }
+}
+
 val remoteDataSource = module{
     single<CepRemoteDataSource>{
         CepRemoteDataSourceImpl( api = get<CepAPI>())
     }
 }
 
+val localDataSource = module {
+    single<CepLocalDataSource>{
+        CepLocalDataSourceImpl(dao = get<CepDao>())
+    }
+}
+
 val repositoryModule = module {
     single <CepRepository>{
-        CepRepositoryImpl(remoteDataSource = get<CepRemoteDataSource>())
+        CepRepositoryImpl(
+            localDataSource = get<CepLocalDataSource>(),
+            remoteDataSource = get<CepRemoteDataSource>())
     }
 }
 

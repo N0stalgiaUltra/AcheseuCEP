@@ -7,18 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.myapplication.databinding.FragmentCepResultBinding
 import com.n0stalgiaultra.view.adapters.CardAdapter
+import com.n0stalgiaultra.view.adapters.CardOnClick
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CepResult : Fragment() {
+class CepResult : Fragment(), CardOnClick {
 
     private val mainViewModel: MainViewModel by activityViewModel()
     private lateinit var binding: FragmentCepResultBinding
-    private val cardAdapter = CardAdapter()
+    private val cardAdapter = CardAdapter(this)
 
 
     override fun onCreateView(
@@ -36,7 +38,7 @@ class CepResult : Fragment() {
         mainViewModel.cepList.observe(viewLifecycleOwner){
             items ->
                 if(items.isNotEmpty()){
-                    cardAdapter.clearData()
+                    cardAdapter.clearData(false)
                     cardAdapter.setData(items)
                     setupRecyclerView()
                     binding.loadingScreen.visibility = View.INVISIBLE
@@ -52,6 +54,14 @@ class CepResult : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 1)
             adapter = cardAdapter
         }
+    }
+
+    override suspend fun favoriteItem(item: CepDto) {
+        mainViewModel.favoriteCep(item)
+    }
+
+    override suspend fun unFavoriteItem(item: CepDto) {
+        mainViewModel.removeFavouriteCep()
     }
 
 }

@@ -6,14 +6,16 @@ import androidx.room.Query
 
 @Dao
 interface CepDao {
-    /*TODO: Fazer o Create, Read e Delete dos cards salvos no BD*/
-
     @Insert
     fun insertCard(card: CepLocal)
+
+    @Query("SELECT * FROM CepLocal where card_id = :id")
+    fun getCard(id: Int) : CepLocal
 
     @Query("SELECT * FROM CepLocal")
     fun getAllCards() : List<CepLocal>
 
     @Query("DELETE FROM CepLocal where card_id = :id")
     fun deleteCard(id: Int)
+
 }

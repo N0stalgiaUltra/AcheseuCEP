@@ -23,7 +23,11 @@ class MainViewModel(private val repository: CepRepository): ViewModel() {
         Log.d("ViewModel", "${_cepList.value!!.size}")
     }
 
-    fun favoriteCep(){
-        /*TODO: Salvar os endereços salvos no banco local*/
+    suspend fun favoriteCep(item: CepDto){
+        repository.insertLocalData(item)
+    }
+
+    fun removeFavouriteCep(){
+
     }
 }

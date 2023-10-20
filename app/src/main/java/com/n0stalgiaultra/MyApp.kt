@@ -2,6 +2,8 @@ package com.n0stalgiaultra
 
 import android.app.Application
 import com.n0stalgiaultra.di.apiModule
+import com.n0stalgiaultra.di.databaseModule
+import com.n0stalgiaultra.di.localDataSource
 import com.n0stalgiaultra.di.mainViewModelModule
 import com.n0stalgiaultra.di.remoteDataSource
 import com.n0stalgiaultra.di.repositoryModule
@@ -23,7 +25,9 @@ class MyApp : Application(){
                 apiModule,
                 repositoryModule,
                 mainViewModelModule,
-                remoteDataSource
+                remoteDataSource,
+                localDataSource,
+                databaseModule
             )
         }
     }
