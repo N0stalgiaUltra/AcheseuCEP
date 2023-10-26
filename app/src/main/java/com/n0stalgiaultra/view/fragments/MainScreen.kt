@@ -13,9 +13,10 @@ import com.n0stalgiaultra.myapplication.databinding.FragmentMainScreenBinding
 class MainScreen : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(

@@ -13,16 +13,18 @@ import com.n0stalgiaultra.view.adapters.CardAdapter
 import com.n0stalgiaultra.view.adapters.CardOnClick
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class CepResult : Fragment(), CardOnClick {
 
     private val mainViewModel: MainViewModel by activityViewModel()
+
     private lateinit var binding: FragmentCepResultBinding
     private val cardAdapter = CardAdapter(this)
 
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.n0stalgiaultra.myapplication.R
-import com.n0stalgiaultra.myapplication.databinding.ActivityMainBinding
 import com.n0stalgiaultra.myapplication.databinding.FragmentSearchCepBinding
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope

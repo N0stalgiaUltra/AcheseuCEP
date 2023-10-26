@@ -13,12 +13,10 @@ import com.n0stalgiaultra.domain.CepRepository
 import com.n0stalgiaultra.domain.CepRepositoryImpl
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import okhttp3.Interceptor
-import okhttp3.OkHttp
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.scope.get
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
