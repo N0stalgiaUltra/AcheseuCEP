@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.n0stalgiaultra.data.remote.CepDto
+import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentCepResultBinding
 import com.n0stalgiaultra.view.adapters.CardAdapter
 import com.n0stalgiaultra.view.adapters.CardOnClick
+import com.n0stalgiaultra.view.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -18,12 +20,17 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class CepResult : Fragment(), CardOnClick {
 
     private val mainViewModel: MainViewModel by activityViewModel()
+    private lateinit var idHandler : FragmentIdHandler
 
     private lateinit var binding: FragmentCepResultBinding
     private val cardAdapter = CardAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        idHandler = FragmentIdHandler(requireActivity())
+        Log.d("SearchCep", idHandler.getID().toString())
+
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +43,7 @@ class CepResult : Fragment(), CardOnClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        idHandler.saveID(R.id.cepResult)
         mainViewModel.cepList.observe(viewLifecycleOwner){
             items ->
                 if(items.isNotEmpty()){

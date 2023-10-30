@@ -1,6 +1,7 @@
 package com.n0stalgiaultra.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentSearchCepBinding
+import com.n0stalgiaultra.view.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,12 +21,16 @@ class SearchCep : Fragment() {
 
     private lateinit var binding: FragmentSearchCepBinding
     private val viewModel: MainViewModel by activityViewModel()
+    private lateinit var idHandler : FragmentIdHandler
 
     private var cepText: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        idHandler = FragmentIdHandler(requireActivity())
+        Log.d("SearchCep", this.id.toString())
+
     }
 
     override fun onCreateView(
@@ -38,6 +44,7 @@ class SearchCep : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        idHandler.saveID(R.id.searchCep)
         // 20541110, 20541-110
         // 20541110, 20551150
         binding.btnBuscaCEP.setOnClickListener {

@@ -1,6 +1,7 @@
 package com.n0stalgiaultra.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentAdvancedSearchCepBinding
+import com.n0stalgiaultra.view.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +20,8 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class AdvancedSearchCep : Fragment() {
 
     private val mainViewModel: MainViewModel by activityViewModel()
+    private lateinit var idHandler : FragmentIdHandler
+
     private lateinit var binding: FragmentAdvancedSearchCepBinding
     private var state: String = ""
     private var city: String = ""
@@ -25,6 +29,7 @@ class AdvancedSearchCep : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        idHandler = FragmentIdHandler(requireActivity())
 
     }
 
@@ -39,6 +44,7 @@ class AdvancedSearchCep : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        idHandler.saveID(R.id.advancedSearchCep)
         binding.btnBuscaCEP.setOnClickListener {
             state = binding.etEstado.text.toString()
             city = binding.etCidade.text.toString()
