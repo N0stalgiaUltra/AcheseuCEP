@@ -12,11 +12,9 @@ class CardAdapter(private val cardOnClick: CardOnClick): RecyclerView.Adapter<Ca
 
     private var _data = emptyList<CepDto>()
     private var _localData = emptyList<CepLocal>()
-    fun clearData(local: Boolean){
-        if(local)
-            _localData = emptyList()
-        else
-            _data = emptyList()
+    fun clearData(){
+        _localData = emptyList()
+        _data = emptyList()
     }
 
     fun setData(data: List<CepDto>){
@@ -33,12 +31,21 @@ class CardAdapter(private val cardOnClick: CardOnClick): RecyclerView.Adapter<Ca
     }
 
     override fun getItemCount(): Int {
-        return _data.size
+        return _data.size + _localData.size
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        val data = _data[position]
-        Log.d("CardAdapter", data.logradouro)
-        holder.bindData(data)
+        if(_data.isNotEmpty()){
+            val data = _data[position]
+            Log.d("CardAdapter", data.logradouro)
+            holder.bindData(data)
+        }
+
+        if(_localData.isNotEmpty()){
+            val data = _localData[position]
+            Log.d("CardAdapter", data.logradouro)
+            holder.bindData(data)
+        } else{ Log.d("CardAdapter", "localData is Empty")}
+
     }
 }

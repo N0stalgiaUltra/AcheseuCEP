@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.n0stalgiaultra.data.local.CepLocal
 import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentCepResultBinding
@@ -47,7 +48,8 @@ class CepResult : Fragment(), CardOnClick {
         mainViewModel.cepList.observe(viewLifecycleOwner){
             items ->
                 if(items.isNotEmpty()){
-                    cardAdapter.clearData(false)
+                Log.d("CepResult", cardAdapter.itemCount.toString())
+                    cardAdapter.clearData()
                     cardAdapter.setData(items)
                     setupRecyclerView()
                     binding.loadingScreen.visibility = View.INVISIBLE
@@ -69,7 +71,7 @@ class CepResult : Fragment(), CardOnClick {
         mainViewModel.favoriteCep(item)
     }
 
-    override suspend fun unFavoriteItem(item: CepDto) {
+    override suspend fun unFavoriteItem(item: CepLocal) {
         mainViewModel.removeFavouriteCep()
     }
 

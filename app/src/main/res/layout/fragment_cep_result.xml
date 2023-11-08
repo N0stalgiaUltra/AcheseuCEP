@@ -15,13 +15,14 @@ tools:context="com.n0stalgiaultra.view.fragments.CepResult">
         app:layout_constraintHeight_percent=".10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/busca_aviso" />
+            -->
     </FrameLayout>
 
     <FrameLayout

@@ -4,9 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.n0stalgiaultra.data.local.CepLocal
 import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.domain.CepRepository
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(private val repository: CepRepository): ViewModel() {
 
@@ -28,9 +34,16 @@ class MainViewModel(private val repository: CepRepository): ViewModel() {
         Log.d("ViewModel", "${_cepList.value!!.size}")
     }
 
-    suspend fun getLocalData(){
-        _localCepList.value = repository.getAllFavourites()
-        Log.d("ViewModel", "${_localCepList.value!!.size}")
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getLocalData(){
+        _localCepList.value = listOf()
+        GlobalScope.launch {
+            val localData = repository.getAllFavourites()
+            withContext(Dispatchers.Main) {
+                _localCepList.postValue(localData)
+            }
+        }
+
     }
 
     suspend fun favoriteCep(item: CepDto){
