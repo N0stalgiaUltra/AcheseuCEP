@@ -13,18 +13,20 @@ import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentCepResultBinding
 import com.n0stalgiaultra.view.adapters.CardAdapter
 import com.n0stalgiaultra.view.adapters.CardOnClick
+import com.n0stalgiaultra.view.adapters.CardOnClickImpl
 import com.n0stalgiaultra.view.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
-class CepResult : Fragment(), CardOnClick {
+class CepResult : Fragment() {
 
     private val mainViewModel: MainViewModel by activityViewModel()
     private lateinit var idHandler : FragmentIdHandler
 
     private lateinit var binding: FragmentCepResultBinding
-    private val cardAdapter = CardAdapter(this)
+    private val cardOnClick by lazy { CardOnClickImpl(mainViewModel) }
+    private val cardAdapter by lazy { CardAdapter(cardOnClick) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,12 +69,5 @@ class CepResult : Fragment(), CardOnClick {
         }
     }
 
-    override suspend fun favoriteItem(item: CepDto) {
-        mainViewModel.favoriteCep(item)
-    }
-
-    override suspend fun unFavoriteItem(item: CepLocal) {
-        mainViewModel.removeFavouriteCep()
-    }
 
 }

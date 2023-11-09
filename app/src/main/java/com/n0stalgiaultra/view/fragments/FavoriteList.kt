@@ -12,18 +12,22 @@ import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.myapplication.databinding.FragmentFavoriteListBinding
 import com.n0stalgiaultra.view.adapters.CardAdapter
 import com.n0stalgiaultra.view.adapters.CardOnClick
+import com.n0stalgiaultra.view.adapters.CardOnClickImpl
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
-class FavoriteList : Fragment(), CardOnClick {
+class FavoriteList : Fragment() {
 
     private val mainViewModel: MainViewModel by activityViewModel()
     private lateinit var binding: FragmentFavoriteListBinding
 
-    private val cardAdapter = CardAdapter(this)
+    private val cardOnClick by lazy { CardOnClickImpl(mainViewModel) }
+    private val cardAdapter by lazy { CardAdapter(cardOnClick, isLocal = true) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -38,8 +42,6 @@ class FavoriteList : Fragment(), CardOnClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel.getLocalData()
-
-
     }
 
     override fun onResume() {
@@ -72,16 +74,4 @@ class FavoriteList : Fragment(), CardOnClick {
         }
     }
 
-
-    /*
-        TODO: Precisa mesmo disso aqui?
-         Será que não seria melhor implementar dentro do VM?
-     */
-    override suspend fun favoriteItem(item: CepDto) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun unFavoriteItem(item: CepLocal) {
-        TODO("Not yet implemented")
-    }
 }

@@ -6,6 +6,8 @@ import com.n0stalgiaultra.data.remote.CepDto
 interface CepLocalDataSource {
 
     fun insert(item: CepDto)
+    fun remove(item: CepLocal)
+
     fun remove(item: CepDto)
 
     fun getItems() : List<CepLocal>

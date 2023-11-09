@@ -1,6 +1,7 @@
 package com.n0stalgiaultra.view.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,13 +9,14 @@ import androidx.lifecycle.viewModelScope
 import com.n0stalgiaultra.data.local.CepLocal
 import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.domain.CepRepository
+import com.n0stalgiaultra.view.adapters.CardOnClick
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(private val repository: CepRepository): ViewModel() {
+class MainViewModel(private val repository: CepRepository): ViewModel(){
 
     private val _cepList = MutableLiveData<List<CepDto>>()
     val cepList: LiveData<List<CepDto>> get() = _cepList
@@ -46,11 +48,21 @@ class MainViewModel(private val repository: CepRepository): ViewModel() {
 
     }
 
-    suspend fun favoriteCep(item: CepDto){
+    suspend fun favoriteItem(item: CepDto) {
         repository.insertLocalData(item)
     }
 
-    fun removeFavouriteCep(){
+    suspend fun unFavoriteItem(item: Any) {
+        when(item){
+            is CepDto -> {
+                repository.removeLocalData(item)
+            }
+            is CepLocal -> {
+                repository.removeLocalData(item)
+            }
+        }
 
     }
+
+
 }

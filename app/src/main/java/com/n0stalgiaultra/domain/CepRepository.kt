@@ -14,6 +14,7 @@ interface CepRepository{
 
     suspend fun insertLocalData(item: CepDto)
 
+    suspend fun removeLocalData(item: CepLocal)
     suspend fun removeLocalData(item: CepDto)
 
     suspend fun getAllFavourites() : List<CepLocal>

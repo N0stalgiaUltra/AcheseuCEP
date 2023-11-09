@@ -20,6 +20,9 @@ class CepRepositoryImpl(
         localDataSource.insert(item)
     }
 
+    override suspend fun removeLocalData(item: CepLocal) {
+        localDataSource.remove(item)
+    }
     override suspend fun removeLocalData(item: CepDto) {
         localDataSource.remove(item)
     }

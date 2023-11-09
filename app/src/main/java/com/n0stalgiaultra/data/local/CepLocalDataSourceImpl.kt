@@ -17,8 +17,14 @@ class CepLocalDataSourceImpl(val dao: CepDao): CepLocalDataSource {
     override fun remove(item: CepDto) {
         CoroutineScope(Dispatchers.IO).launch {
             val localCep = dao.getCard(convertToLocal(item).id)
-            if(localCep != null)
-                dao.deleteCard(localCep.id)
+            dao.deleteCard(localCep.id)
+        }
+    }
+
+    override fun remove(item: CepLocal) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val localCep = dao.getCard(item.id)
+            dao.deleteCard(localCep.id)
         }
     }
 

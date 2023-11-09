@@ -1,6 +1,7 @@
 package com.n0stalgiaultra.view.adapters
 
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.n0stalgiaultra.data.local.CepLocal
 import com.n0stalgiaultra.data.remote.CepDto
@@ -12,10 +13,13 @@ import kotlinx.coroutines.launch
 
 class CardViewHolder(
     private val cardItem : CardItemBinding,
-    val cardOnClick: CardOnClick
+    private val cardOnClick: CardOnClick
 ): RecyclerView.ViewHolder(cardItem.root) {
+    /* Se o objeto pertence ao _localList -> a lista de favoritos*/
+    val favoriteIcons = listOf(R.drawable.baseline_star_border_24, R.drawable.baseline_star_24)
+    fun bindData(data: Any, isFav: Boolean){
+        cardItem.btnFavorite.setImageResource(favoriteIcons[if(isFav) 1 else 0])
 
-    fun bindData(data: Any){
         when(data){
             is CepDto -> {
                 cardItem.cardCep.text = data.cep
@@ -30,9 +34,26 @@ class CardViewHolder(
 
                 cardItem.btnFavorite.setOnClickListener {
                     CoroutineScope(Dispatchers.Main).launch {
-                        cardOnClick.favoriteItem(data)
+                        if(isFav) {
+                            cardOnClick.unFavoriteItem(data)
+                            cardItem.btnFavorite.setImageResource(favoriteIcons[0])
+                            Toast.makeText(
+                                cardItem.root.context,
+                                "Removido dos favoritos",
+                                Toast.LENGTH_SHORT).show()
+
+                        }
+                        else {
+                            cardOnClick.favoriteItem(data)
+                            cardItem.btnFavorite.setImageResource(favoriteIcons[1])
+                            Toast.makeText(
+                                cardItem.root.context,
+                                "Adicionado aos favoritos",
+                                Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
+
             }
             is CepLocal -> {
                 cardItem.cardCep.text = data.cep
@@ -46,46 +67,21 @@ class CardViewHolder(
                 )
 
                 // Adicione lógica para lidar com itens locais, como desfavoritar
+                cardItem.btnFavorite.setOnClickListener {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        if(isFav) {
+                            cardOnClick.unFavoriteItem(data)
+                            cardItem.btnFavorite.setImageResource(favoriteIcons[0])
+                            Toast.makeText(
+                                cardItem.root.context,
+                                "Removido dos favoritos",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
+
+
     }
-
-//    fun bindRemoteData(data: CepDto){
-//        cardItem.cardCep.text = data.cep
-//        cardItem.cardStreet.text = data.logradouro
-//        cardItem.cardNeighbourhood.text = data.bairro
-//
-//        cardItem.cardCityState.text = cardItem.root.context.getString(
-//            R.string.cidade_estado,
-//            data.localidade,
-//            data.uf
-//        )
-//
-//        /*TODO: adicionar maneira de controlar caso o item não tenha sido favoritado*/
-//        cardItem.btnFavorite.setOnClickListener {
-//            CoroutineScope(Dispatchers.Main).launch {
-//                cardOnClick.favoriteItem(data)
-//            }
-//        }
-//    }
-//
-//    fun bindLocalData(data: CepLocal){
-//        cardItem.cardCep.text = data.cep
-//        cardItem.cardStreet.text = data.logradouro
-//        cardItem.cardNeighbourhood.text = data.bairro
-//
-//        cardItem.cardCityState.text = cardItem.root.context.getString(
-//            R.string.cidade_estado,
-//            data.localidade,
-//            data.uf
-//        )
-//        Log.d("bindLocalData", "${data.cep}, ${data.logradouro}")
-//        /*TODO: adicionar maneira de controlar caso o item não tenha sido favoritado*/
-////        cardItem.btnFavorite.setOnClickListener {
-////            CoroutineScope(Dispatchers.Main).launch {
-////                cardOnClick.unFavoriteItem(data)
-////            }
-////        }
-//    }
-
 }
