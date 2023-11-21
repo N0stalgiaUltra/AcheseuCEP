@@ -96,9 +96,3 @@ val repositoryModule = module {
             remoteDataSource = get<CepRemoteDataSource>())
     }
 }
-
-val mainViewModelModule = module {
-    viewModel {
-        MainViewModel(repository = get<CepRepository>())
-    }
-}

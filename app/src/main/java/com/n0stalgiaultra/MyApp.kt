@@ -8,6 +8,7 @@ import com.n0stalgiaultra.di.mainViewModelModule
 import com.n0stalgiaultra.di.remoteDataSource
 import com.n0stalgiaultra.di.repositoryModule
 import com.n0stalgiaultra.di.retrofitModule
+import com.n0stalgiaultra.di.useCasesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -27,7 +28,8 @@ class MyApp : Application(){
                 mainViewModelModule,
                 remoteDataSource,
                 localDataSource,
-                databaseModule
+                databaseModule,
+                useCasesModule
             )
         }
     }

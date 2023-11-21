@@ -7,11 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.myapplication.databinding.FragmentFavoriteListBinding
 import com.n0stalgiaultra.view.adapters.CardAdapter
-import com.n0stalgiaultra.view.adapters.CardOnClick
 import com.n0stalgiaultra.view.adapters.CardOnClickImpl
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -41,7 +38,7 @@ class FavoriteList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel.getLocalData()
+        mainViewModel.getFavoriteItems()
     }
 
     override fun onResume() {

@@ -50,7 +50,7 @@ class SearchCep : Fragment() {
         binding.btnBuscaCEP.setOnClickListener {
             cepText = binding.edDigiteCep.text.toString()
             CoroutineScope(Dispatchers.Main).launch {
-                viewModel.getCepData(cepText)
+                viewModel.getDataFromCep(cepText)
             }
             findNavController().navigate(R.id.action_searchCep_to_cepResult)
         }
