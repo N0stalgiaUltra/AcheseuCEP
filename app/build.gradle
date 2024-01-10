@@ -25,6 +25,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable false
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -39,6 +42,8 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    useLibrary 'android.test.mock'
 }
 
 dependencies {
@@ -53,7 +58,17 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:core:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+
+
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    androidTestImplementation "org.mockito.kotlin:mockito-kotlin:5.1.0"
+    androidTestImplementation("org.mockito:mockito-android:5.5.0")
+
     // Testing Navigation
     androidTestImplementation("androidx.navigation:navigation-testing:2.5.3")
 
@@ -77,6 +92,8 @@ dependencies {
     //Koin
     implementation "io.insert-koin:koin-core:3.4.0"
     implementation "io.insert-koin:koin-android:3.3.1"
+    implementation "io.insert-koin:koin-android-test:3.4.0"
+    testImplementation "io.insert-koin:koin-android-test:3.4.0"
 
     //Retrofit + OkHTTP + GsonConverter
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
