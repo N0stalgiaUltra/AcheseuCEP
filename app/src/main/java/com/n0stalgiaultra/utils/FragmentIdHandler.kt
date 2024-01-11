@@ -1,4 +1,4 @@
-package com.n0stalgiaultra.view.utils
+package com.n0stalgiaultra.utils
 
 import android.content.Context
 

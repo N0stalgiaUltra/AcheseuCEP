@@ -2,19 +2,21 @@ package com.n0stalgiaultra.myapplication
 
 import com.n0stalgiaultra.data.local.CepDao
 import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.local.CepLocalDataSourceImpl
 import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.domain.CepLocalDataSource
+import com.n0stalgiaultra.utils.checkEmptyData
+import com.n0stalgiaultra.utils.convertToDto
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.never
 import org.mockito.MockitoAnnotations
 
-class UseCasesUnitTests {
+class LocalDataSourceUnitTests {
 
     @Mock
     lateinit var mockLocalDataSource: CepLocalDataSource
@@ -63,6 +65,41 @@ class UseCasesUnitTests {
         Assert.assertTrue(newMockList.contains(item))
     }
 
+    @Test
+    fun `cannotAddCepToFavoriteWithMissingInfo`(){
+        //given
+        Mockito.`when`(mockLocalDataSource.getItems()).thenReturn(
+            mockFavoriteList
+        )
+
+        //when
+        val item = CepLocal(
+            cep = "",
+            logradouro = "",
+            complemento = "",
+            bairro = "",
+            localidade = "",
+            uf = "",
+            ibge = "",
+            gia = "",
+            ddd = "",
+            siafi = ""
+        )
+
+
+        runBlocking {
+            if(checkEmptyData(item))
+                mockLocalDataSource.insert(convertToDto(item))
+        }
+
+        //never garante que o metodo 'insert' nunca foi chamado
+        Mockito.verify(mockLocalDataSource, never()).insert(convertToDto(item))
+    }
+
+//    @Test
+//    fun ``(){
+//
+//    }
     /* Favorite Mock List */
     companion object{
         val mockFavoriteList = listOf<CepLocal>(
@@ -101,39 +138,5 @@ class UseCasesUnitTests {
             siafi = "6003"
         ),
         )
-
-        private fun convertToLocal(item: CepDto): CepLocal{
-            return CepLocal(
-                cep = item.cep,
-                logradouro = item.logradouro,
-                complemento = item.complemento,
-                bairro = item.bairro,
-                localidade = item.localidade,
-                uf = item.uf,
-                ibge = item.ibge,
-                gia = item.gia,
-                ddd = item.ddd,
-                siafi = item.siafi)
-        }
-
-        private fun convertToDto(item: CepLocal): CepDto{
-            return CepDto(
-                cep = item.cep,
-                logradouro = item.logradouro,
-                complemento = item.complemento,
-                bairro = item.bairro,
-                localidade = item.localidade,
-                uf = item.uf,
-                ibge = item.ibge,
-                gia = item.gia,
-                ddd = item.ddd,
-                siafi = item.siafi)
-        }
-
     }
 }
-
-/*
-*
-*
-* */

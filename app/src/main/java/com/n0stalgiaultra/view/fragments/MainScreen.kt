@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentMainScreenBinding
-import com.n0stalgiaultra.view.utils.FragmentIdHandler
+import com.n0stalgiaultra.utils.FragmentIdHandler
 
 
 class MainScreen : Fragment() {

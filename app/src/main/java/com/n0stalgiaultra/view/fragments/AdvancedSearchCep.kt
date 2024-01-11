@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentAdvancedSearchCepBinding
-import com.n0stalgiaultra.view.utils.FragmentIdHandler
+import com.n0stalgiaultra.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

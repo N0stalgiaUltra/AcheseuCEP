@@ -14,7 +14,7 @@ import com.n0stalgiaultra.myapplication.databinding.FragmentCepResultBinding
 import com.n0stalgiaultra.view.adapters.CardAdapter
 import com.n0stalgiaultra.view.adapters.CardOnClick
 import com.n0stalgiaultra.view.adapters.CardOnClickImpl
-import com.n0stalgiaultra.view.utils.FragmentIdHandler
+import com.n0stalgiaultra.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 

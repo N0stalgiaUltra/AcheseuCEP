@@ -1,7 +1,11 @@
 package com.n0stalgiaultra.data.local
 
+import android.util.Log
 import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.domain.CepLocalDataSource
+import com.n0stalgiaultra.utils.EmptyDataException
+import com.n0stalgiaultra.utils.checkEmptyData
+import com.n0stalgiaultra.utils.convertToLocal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -9,8 +13,18 @@ import kotlinx.coroutines.launch
 class CepLocalDataSourceImpl(val dao: CepDao): CepLocalDataSource {
 
     override fun insert(item: CepDto) {
-        CoroutineScope(Dispatchers.IO).launch {
-            dao.insertCard(convertToLocal(item))
+        try {
+            if(checkEmptyData(item)) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    dao.insertCard(convertToLocal(item))
+                }
+            }
+            else{
+                throw EmptyDataException("CANNOT ADD ITEM BECAUSE OF EMPTY PROPERTIES")
+            }
+        }
+        catch (e: EmptyDataException){
+            Log.e("Error", e.message?: "an error occurred")
         }
     }
 
@@ -30,21 +44,6 @@ class CepLocalDataSourceImpl(val dao: CepDao): CepLocalDataSource {
 
     override fun getItems(): List<CepLocal> {
         return dao.getAllCards()
-    }
-
-
-    private fun convertToLocal(item: CepDto): CepLocal{
-        return CepLocal(
-                cep = item.cep,
-                logradouro = item.logradouro,
-                complemento = item.complemento,
-                bairro = item.bairro,
-                localidade = item.localidade,
-                uf = item.uf,
-                ibge = item.ibge,
-                gia = item.gia,
-                ddd = item.ddd,
-                siafi = item.siafi)
     }
 
 }
