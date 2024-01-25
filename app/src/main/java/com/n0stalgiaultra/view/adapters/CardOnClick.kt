@@ -4,8 +4,8 @@ import com.n0stalgiaultra.data.local.CepLocal
 import com.n0stalgiaultra.data.remote.CepDto
 
 interface CardOnClick {
-    suspend fun favoriteItem(item: CepDto)
+    suspend fun favoriteItem(item: com.n0stalgiaultra.data.remote.CepDto)
     suspend fun unFavoriteItem(item: CepLocal)
-    suspend fun unFavoriteItem(item: CepDto)
+    suspend fun unFavoriteItem(item: com.n0stalgiaultra.data.remote.CepDto)
 
 }

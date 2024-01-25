@@ -24,7 +24,7 @@ val testDatabaseModule = module{
         get<TestAppDatabase>().getDao()
     }
 
-    single<CepLocalDataSource> {
+    single<com.n0stalgiaultra.domain.CepLocalDataSource> {
         CepLocalDataSourceImpl(get())
     }
 }

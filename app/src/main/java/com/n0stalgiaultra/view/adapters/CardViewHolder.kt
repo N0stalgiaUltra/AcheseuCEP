@@ -21,7 +21,7 @@ class CardViewHolder(
         cardItem.btnFavorite.setImageResource(favoriteIcons[if(isFav) 1 else 0])
 
         when(data){
-            is CepDto -> {
+            is com.n0stalgiaultra.data.remote.CepDto -> {
                 cardItem.cardCep.text = data.cep
                 cardItem.cardStreet.text = data.logradouro
                 cardItem.cardNeighbourhood.text = data.bairro

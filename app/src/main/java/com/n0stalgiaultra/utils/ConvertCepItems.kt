@@ -2,7 +2,7 @@ package com.n0stalgiaultra.utils
 
 import com.n0stalgiaultra.data.local.CepLocal
 import com.n0stalgiaultra.data.remote.CepDto
-fun convertToLocal(item: CepDto): CepLocal{
+fun convertToLocal(item: com.n0stalgiaultra.data.remote.CepDto): CepLocal{
     return CepLocal(
         cep = item.cep,
         logradouro = item.logradouro,
@@ -16,8 +16,8 @@ fun convertToLocal(item: CepDto): CepLocal{
         siafi = item.siafi)
 }
 
-fun convertToDto(item: CepLocal): CepDto{
-    return CepDto(
+fun convertToDto(item: CepLocal): com.n0stalgiaultra.data.remote.CepDto {
+    return com.n0stalgiaultra.data.remote.CepDto(
         cep = item.cep,
         logradouro = item.logradouro,
         complemento = item.complemento,
@@ -27,5 +27,6 @@ fun convertToDto(item: CepLocal): CepDto{
         ibge = item.ibge,
         gia = item.gia,
         ddd = item.ddd,
-        siafi = item.siafi)
+        siafi = item.siafi
+    )
 }

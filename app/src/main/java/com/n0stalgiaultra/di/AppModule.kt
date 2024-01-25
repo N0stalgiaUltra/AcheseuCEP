@@ -1,98 +1,99 @@
 package com.n0stalgiaultra.di
 
 import androidx.room.Room
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.n0stalgiaultra.data.local.AppDatabase
-import com.n0stalgiaultra.data.local.CepDao
-import com.n0stalgiaultra.data.local.CepLocalDataSourceImpl
 import com.n0stalgiaultra.data.remote.CepAPI
-import com.n0stalgiaultra.data.remote.CepRemoteDataSourceImpl
+import com.n0stalgiaultra.data.repository.CepRemoteDataSourceImpl
+import com.n0stalgiaultra.database.dao.CepDao
+import com.n0stalgiaultra.database.database.AppDatabase
+import com.n0stalgiaultra.database.repository.CepLocalDataSourceImpl
 import com.n0stalgiaultra.domain.CepLocalDataSource
 import com.n0stalgiaultra.domain.CepRemoteDataSource
 import com.n0stalgiaultra.domain.CepRepository
 import com.n0stalgiaultra.domain.CepRepositoryImpl
+import com.n0stalgiaultra.domain.usecase.FavoriteCepUseCase
+import com.n0stalgiaultra.domain.usecase.GetCepUseCase
+import com.n0stalgiaultra.domain.usecase.GetDataFromCepUseCase
+import com.n0stalgiaultra.domain.usecase.GetFavoriteDataUseCase
+import com.n0stalgiaultra.domain.usecase.UnfavoriteCepUseCase
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
-val retrofitModule = module{
-    factory <Interceptor>{
-        Interceptor{
-            chain ->
-            val request  = chain.request()
-                .newBuilder()
-                .build()
-                chain.proceed(request)
-        }
+
+val appModule = module{
+
+    //Moshi Converter
+    single{
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
     }
-
-    factory <HttpLoggingInterceptor>{
-        HttpLoggingInterceptor(
-            HttpLoggingInterceptor.Logger.DEFAULT
-        ).setLevel(
-            HttpLoggingInterceptor.Level.HEADERS
-        )
-    }
-
-    factory {
-        OkHttpClient.Builder().apply {
-            addInterceptor( get<Interceptor>() )
-            addInterceptor(get<HttpLoggingInterceptor>())
-        }.build()
-    }
-
+    //Retrofit
     single {
         Retrofit.Builder()
             .client(get())
             .baseUrl(CepAPI.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .addConverterFactory(MoshiConverterFactory.create(get()))
+            //.addCallAdapterFactory(CallAdapter.Factory().create())
             .build()
     }
-}
-
-val apiModule = module {
+    //instancia da API
     single(createdAtStart = false){
         get<Retrofit>().create(CepAPI::class.java)
     }
-}
 
-val databaseModule = module {
+    //Room
     single {
         Room.databaseBuilder(
             context = androidContext(),
             klass = AppDatabase::class.java,
             name = AppDatabase.DATABASE_NAME
-            ).build()
+        ).build()
     }
 
+    //Dao
     single {
         get<AppDatabase>().getDao()
     }
-}
 
-val remoteDataSource = module{
+    //RemoteDataSource
     single<CepRemoteDataSource>{
-        CepRemoteDataSourceImpl( api = get<CepAPI>())
+        CepRemoteDataSourceImpl(api = get<CepAPI>())
     }
-}
 
-val localDataSource = module {
+    //LocalDataSource
     single<CepLocalDataSource>{
         CepLocalDataSourceImpl(dao = get<CepDao>())
     }
-}
 
-val repositoryModule = module {
+    //CepRepository
     single <CepRepository>{
         CepRepositoryImpl(
             localDataSource = get<CepLocalDataSource>(),
-            remoteDataSource = get<CepRemoteDataSource>())
+            remoteDataSource = get<CepRemoteDataSource>()
+        )
+    }
+
+    //UseCases
+    factory { FavoriteCepUseCase(get<CepRepository>()) }
+    factory { GetCepUseCase(get<CepRepository>()) }
+    factory { GetDataFromCepUseCase(get<CepRepository>()) }
+    factory { UnfavoriteCepUseCase(get<CepRepository>()) }
+    factory { GetFavoriteDataUseCase(get<CepRepository>()) }
+
+    //ViewModel
+    viewModel {
+        MainViewModel(
+            get<FavoriteCepUseCase>(),
+            get<UnfavoriteCepUseCase>(),
+            get<GetCepUseCase>(),
+            get<GetDataFromCepUseCase>(),
+            get<GetFavoriteDataUseCase>()
+        )
     }
 }

@@ -11,21 +11,21 @@ import com.n0stalgiaultra.myapplication.databinding.CardItemBinding
 class CardAdapter(private val cardOnClick: CardOnClick,
                   private val isLocal: Boolean = false): RecyclerView.Adapter<CardViewHolder>(){
 
-    private var _data = emptyList<CepDto>()
+    private var _data = emptyList<com.n0stalgiaultra.data.remote.CepDto>()
     private var _localData = emptyList<CepLocal>()
     fun clearData(){
         //_localData = emptyList()
         _data = emptyList()
     }
 
-    fun setData(data: List<CepDto>){
+    fun setData(data: List<com.n0stalgiaultra.data.remote.CepDto>){
         _data = data
     }
     fun setLocalData(data: List<CepLocal>){
         _localData = data
     }
 
-    private fun checkFavorite(data: CepDto): Boolean{
+    private fun checkFavorite(data: com.n0stalgiaultra.data.remote.CepDto): Boolean{
         for (localItem in _localData){
             if(data.cep == localItem.cep)
                 return true

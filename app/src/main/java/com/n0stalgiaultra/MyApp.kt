@@ -1,14 +1,7 @@
 package com.n0stalgiaultra
 
 import android.app.Application
-import com.n0stalgiaultra.di.apiModule
-import com.n0stalgiaultra.di.databaseModule
-import com.n0stalgiaultra.di.localDataSource
-import com.n0stalgiaultra.di.mainViewModelModule
-import com.n0stalgiaultra.di.remoteDataSource
-import com.n0stalgiaultra.di.repositoryModule
-import com.n0stalgiaultra.di.retrofitModule
-import com.n0stalgiaultra.di.useCasesModule
+import com.n0stalgiaultra.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -22,14 +15,7 @@ class MyApp : Application(){
             androidLogger(Level.NONE)
             androidContext(this@MyApp)
             modules(
-                retrofitModule,
-                apiModule,
-                repositoryModule,
-                mainViewModelModule,
-                remoteDataSource,
-                localDataSource,
-                databaseModule,
-                useCasesModule
+                appModule
             )
         }
     }

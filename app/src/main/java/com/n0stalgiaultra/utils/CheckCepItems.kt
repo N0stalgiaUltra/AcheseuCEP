@@ -3,7 +3,7 @@ package com.n0stalgiaultra.utils
 import com.n0stalgiaultra.data.local.CepLocal
 import com.n0stalgiaultra.data.remote.CepDto
 
-fun checkEmptyData(item: CepDto) : Boolean{
+fun checkEmptyData(item: com.n0stalgiaultra.data.remote.CepDto) : Boolean{
     return !(item.cep.isEmpty()
             || item.logradouro.isEmpty()
             || item.bairro.isEmpty()

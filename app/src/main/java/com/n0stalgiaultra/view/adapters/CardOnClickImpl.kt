@@ -6,7 +6,7 @@ import com.n0stalgiaultra.view.viewmodel.MainViewModel
 
 class CardOnClickImpl(private val viewModel: MainViewModel): CardOnClick {
 
-    override suspend fun favoriteItem(item: CepDto) {
+    override suspend fun favoriteItem(item: com.n0stalgiaultra.data.remote.CepDto) {
         viewModel.favoriteItem(item)
     }
 
@@ -16,7 +16,7 @@ class CardOnClickImpl(private val viewModel: MainViewModel): CardOnClick {
     }
 
     //itens remotos
-    override suspend fun unFavoriteItem(item: CepDto) {
+    override suspend fun unFavoriteItem(item: com.n0stalgiaultra.data.remote.CepDto) {
         viewModel.unFavoriteItem(item)
     }
 }

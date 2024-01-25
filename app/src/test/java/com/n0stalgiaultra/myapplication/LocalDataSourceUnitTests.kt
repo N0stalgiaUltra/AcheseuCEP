@@ -2,7 +2,6 @@ package com.n0stalgiaultra.myapplication
 
 import com.n0stalgiaultra.data.local.CepDao
 import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.domain.CepLocalDataSource
 import com.n0stalgiaultra.utils.checkEmptyData
 import com.n0stalgiaultra.utils.convertToDto
@@ -10,16 +9,16 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.never
+import org.mockito.Mockito.times
 import org.mockito.MockitoAnnotations
 
 class LocalDataSourceUnitTests {
 
     @Mock
-    lateinit var mockLocalDataSource: CepLocalDataSource
+    lateinit var mockLocalDataSource: com.n0stalgiaultra.domain.CepLocalDataSource
 
     @Mock
     lateinit var mockCepDao: CepDao
@@ -31,7 +30,7 @@ class LocalDataSourceUnitTests {
 
 
     @Test
-    fun `addCepToFavorite`(){
+    fun `shouldAddCepToFavorite`(){
         //given
         Mockito.`when`(mockLocalDataSource.getItems())
             .thenReturn(
@@ -66,7 +65,7 @@ class LocalDataSourceUnitTests {
     }
 
     @Test
-    fun `cannotAddCepToFavoriteWithMissingInfo`(){
+    fun `shouldNotAddCepToFavoriteWithMissingInfo`(){
         //given
         Mockito.`when`(mockLocalDataSource.getItems()).thenReturn(
             mockFavoriteList
@@ -96,10 +95,43 @@ class LocalDataSourceUnitTests {
         Mockito.verify(mockLocalDataSource, never()).insert(convertToDto(item))
     }
 
-//    @Test
-//    fun ``(){
-//
-//    }
+    @Test
+    fun `shouldDeleteSpecifiedItem`(){
+
+        val item = CepLocal(
+            cep = "20541-111",
+            logradouro = "Rua Teste 1",
+            complemento = "",
+            bairro = "Andarai",
+            localidade = "Rio de Janeiro",
+            uf = "RJ",
+            ibge = "3304558",
+            gia = "",
+            ddd = "21",
+            siafi = "6002")
+
+        Mockito.`when`(mockLocalDataSource.getItems()).thenReturn(
+            mockFavoriteList
+        )
+
+        runBlocking {
+            if(checkEmptyData(item))
+                mockLocalDataSource.remove(item)
+        }
+
+        val newMockList = mockFavoriteList.filterNot { it == item }
+
+        Mockito.verify(mockLocalDataSource, times(1)).remove(item)
+        Assert.assertFalse("Item should not be in list anymore",
+            newMockList.contains(item))
+
+
+    }
+
+    @Test
+    fun `shouldReturnEmptyList`(){
+
+    }
     /* Favorite Mock List */
     companion object{
         val mockFavoriteList = listOf<CepLocal>(
