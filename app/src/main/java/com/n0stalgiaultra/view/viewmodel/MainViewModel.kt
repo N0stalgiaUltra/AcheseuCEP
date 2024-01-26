@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.remote.CepDto
+import com.n0stalgiaultra.domain.model.CepDto
+import com.n0stalgiaultra.database.entity.CepLocal
 import com.n0stalgiaultra.domain.usecase.FavoriteCepUseCase
 import com.n0stalgiaultra.domain.usecase.GetCepUseCase
 import com.n0stalgiaultra.domain.usecase.GetDataFromCepUseCase
@@ -24,8 +24,8 @@ class MainViewModel(
     private val getDataFromCepUseCase: GetDataFromCepUseCase,
     private val getFavoriteDataUseCase: GetFavoriteDataUseCase): ViewModel(){
 
-    private val _cepList = MutableLiveData<List<com.n0stalgiaultra.data.remote.CepDto>>()
-    val cepList: LiveData<List<com.n0stalgiaultra.data.remote.CepDto>> get() = _cepList
+    private val _cepList = MutableLiveData<List<CepDto>>()
+    val cepList: LiveData<List<CepDto>> get() = _cepList
 
     private val _localCepList = MutableLiveData<List<CepLocal>>()
     val localCepList: LiveData<List<CepLocal>> get() = _localCepList
@@ -54,7 +54,7 @@ class MainViewModel(
 
     }
 
-    suspend fun favoriteItem(item: com.n0stalgiaultra.data.remote.CepDto){
+    suspend fun favoriteItem(item: CepDto){
         favoriteCepUseCase.invoke(item)
     }
     suspend fun unFavoriteItem(item: Any) {

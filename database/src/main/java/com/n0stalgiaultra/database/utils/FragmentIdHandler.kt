@@ -1,4 +1,4 @@
-package com.n0stalgiaultra.utils
+package com.n0stalgiaultra.database.utils
 
 import android.content.Context
 

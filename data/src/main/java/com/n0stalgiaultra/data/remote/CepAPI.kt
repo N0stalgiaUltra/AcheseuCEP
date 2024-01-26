@@ -1,5 +1,6 @@
 package com.n0stalgiaultra.data.remote
 
+import com.n0stalgiaultra.domain.model.CepDto
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

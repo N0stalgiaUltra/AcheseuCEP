@@ -1,12 +1,12 @@
 package com.n0stalgiaultra.view.adapters
 
-import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.remote.CepDto
+import com.n0stalgiaultra.domain.model.CepDto
+import com.n0stalgiaultra.database.entity.CepLocal
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 
 class CardOnClickImpl(private val viewModel: MainViewModel): CardOnClick {
 
-    override suspend fun favoriteItem(item: com.n0stalgiaultra.data.remote.CepDto) {
+    override suspend fun favoriteItem(item: CepDto) {
         viewModel.favoriteItem(item)
     }
 
@@ -16,7 +16,7 @@ class CardOnClickImpl(private val viewModel: MainViewModel): CardOnClick {
     }
 
     //itens remotos
-    override suspend fun unFavoriteItem(item: com.n0stalgiaultra.data.remote.CepDto) {
+    override suspend fun unFavoriteItem(item: CepDto) {
         viewModel.unFavoriteItem(item)
     }
 }

@@ -1,10 +1,10 @@
 package com.n0stalgiaultra.domain.usecase
 
-import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.domain.CepRepository
+import com.n0stalgiaultra.domain.mapper.Cep
+import com.n0stalgiaultra.domain.repository.CepRepository
 
 class GetFavoriteDataUseCase (private val repository: CepRepository) {
-    suspend operator fun invoke(): List<CepLocal> {
+    suspend operator fun invoke(): List<Cep> {
         return repository.getAllFavourites()
     }
 }

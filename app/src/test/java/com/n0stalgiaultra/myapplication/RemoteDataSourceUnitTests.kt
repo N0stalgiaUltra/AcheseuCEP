@@ -1,8 +1,7 @@
 package com.n0stalgiaultra.myapplication
 
 import com.google.common.truth.Truth
-import com.n0stalgiaultra.data.remote.CepAPI
-import com.n0stalgiaultra.data.remote.CepDto
+import com.n0stalgiaultra.domain.model.CepDto
 import dev.thiagosouto.butler.file.readFile
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
@@ -39,8 +38,8 @@ class RemoteDataSourceUnitTests {
         Truth.assertThat(request.path)
             .isEqualTo("RJ/Rio%20De%20Janeiro/Rua%20Silva%20Teles/json/")
         Truth.assertThat(result).isEqualTo(
-            listOf<com.n0stalgiaultra.data.remote.CepDto>(
-                com.n0stalgiaultra.data.remote.CepDto(
+            listOf<CepDto>(
+                CepDto(
                     cep = "20541-110",
                     logradouro = "Rua Silva Teles",
                     complemento = "",

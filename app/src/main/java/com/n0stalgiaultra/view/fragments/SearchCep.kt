@@ -2,10 +2,11 @@ package com.n0stalgiaultra.view.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentSearchCepBinding
@@ -14,13 +15,12 @@ import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
 class SearchCep : Fragment() {
 
     private lateinit var binding: FragmentSearchCepBinding
-    private val viewModel: MainViewModel by activityViewModel()
+    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var idHandler : FragmentIdHandler
 
     private var cepText: String = ""

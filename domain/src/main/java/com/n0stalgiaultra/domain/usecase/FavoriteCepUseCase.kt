@@ -1,11 +1,11 @@
 package com.n0stalgiaultra.domain.usecase
 
-import com.n0stalgiaultra.data.remote.CepDto
-import com.n0stalgiaultra.domain.CepRepository
+import com.n0stalgiaultra.domain.mapper.Cep
+import com.n0stalgiaultra.domain.repository.CepRepository
 
 class FavoriteCepUseCase(private val repository: CepRepository) {
     suspend operator fun invoke(
-        item: com.n0stalgiaultra.data.remote.CepDto
+        item: Cep
     ){
         repository.insertLocalData(item)
     }

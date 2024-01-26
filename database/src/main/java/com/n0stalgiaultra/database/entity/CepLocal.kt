@@ -3,6 +3,8 @@ package com.n0stalgiaultra.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.n0stalgiaultra.domain.mapper.Cep
+import com.n0stalgiaultra.domain.model.CepDto
 
 @Entity
 data class CepLocal(
@@ -19,4 +21,18 @@ data class CepLocal(
 ){
     @ColumnInfo("card_id")
     @PrimaryKey(autoGenerate = true) var id: Int = 0
+
+    companion object{
+        fun mapLocalToCep(cepLocal: CepLocal): Cep {
+            return Cep(
+                cepLocal.id,
+                cepLocal.cep,
+                cepLocal.logradouro,
+                cepLocal.bairro,
+                cepLocal.localidade,
+                cepLocal.uf
+            )
+        }
+    }
 }
+

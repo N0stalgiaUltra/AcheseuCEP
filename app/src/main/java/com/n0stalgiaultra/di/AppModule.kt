@@ -8,7 +8,7 @@ import com.n0stalgiaultra.database.database.AppDatabase
 import com.n0stalgiaultra.database.repository.CepLocalDataSourceImpl
 import com.n0stalgiaultra.domain.CepLocalDataSource
 import com.n0stalgiaultra.domain.CepRemoteDataSource
-import com.n0stalgiaultra.domain.CepRepository
+import com.n0stalgiaultra.domain.repository.CepRepository
 import com.n0stalgiaultra.domain.CepRepositoryImpl
 import com.n0stalgiaultra.domain.usecase.FavoriteCepUseCase
 import com.n0stalgiaultra.domain.usecase.GetCepUseCase

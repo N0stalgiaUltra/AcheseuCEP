@@ -4,28 +4,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.remote.CepDto
+import com.n0stalgiaultra.domain.model.CepDto
+import com.n0stalgiaultra.database.entity.CepLocal
 import com.n0stalgiaultra.myapplication.databinding.CardItemBinding
 
 class CardAdapter(private val cardOnClick: CardOnClick,
                   private val isLocal: Boolean = false): RecyclerView.Adapter<CardViewHolder>(){
 
-    private var _data = emptyList<com.n0stalgiaultra.data.remote.CepDto>()
+    private var _data = emptyList<CepDto>()
     private var _localData = emptyList<CepLocal>()
     fun clearData(){
         //_localData = emptyList()
         _data = emptyList()
     }
 
-    fun setData(data: List<com.n0stalgiaultra.data.remote.CepDto>){
+    fun setData(data: List<CepDto>){
         _data = data
     }
     fun setLocalData(data: List<CepLocal>){
         _localData = data
     }
 
-    private fun checkFavorite(data: com.n0stalgiaultra.data.remote.CepDto): Boolean{
+    private fun checkFavorite(data: CepDto): Boolean{
         for (localItem in _localData){
             if(data.cep == localItem.cep)
                 return true

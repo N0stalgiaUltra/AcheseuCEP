@@ -1,10 +1,9 @@
 package com.n0stalgiaultra.view.adapters
 
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.remote.CepDto
+import com.n0stalgiaultra.database.entity.CepLocal
+import com.n0stalgiaultra.domain.model.CepDto
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.CardItemBinding
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +20,7 @@ class CardViewHolder(
         cardItem.btnFavorite.setImageResource(favoriteIcons[if(isFav) 1 else 0])
 
         when(data){
-            is com.n0stalgiaultra.data.remote.CepDto -> {
+            is CepDto -> {
                 cardItem.cardCep.text = data.cep
                 cardItem.cardStreet.text = data.logradouro
                 cardItem.cardNeighbourhood.text = data.bairro
@@ -85,3 +84,4 @@ class CardViewHolder(
 
     }
 }
+

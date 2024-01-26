@@ -6,22 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.n0stalgiaultra.data.local.CepLocal
-import com.n0stalgiaultra.data.remote.CepDto
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentCepResultBinding
-import com.n0stalgiaultra.view.adapters.CardAdapter
-import com.n0stalgiaultra.view.adapters.CardOnClick
-import com.n0stalgiaultra.view.adapters.CardOnClickImpl
 import com.n0stalgiaultra.utils.FragmentIdHandler
+import com.n0stalgiaultra.view.adapters.CardAdapter
+import com.n0stalgiaultra.view.adapters.CardOnClickImpl
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
 class CepResult : Fragment() {
 
-    private val mainViewModel: MainViewModel by activityViewModel()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var idHandler : FragmentIdHandler
 
     private lateinit var binding: FragmentCepResultBinding
