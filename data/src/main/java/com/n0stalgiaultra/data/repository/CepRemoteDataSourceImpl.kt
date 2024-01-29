@@ -4,6 +4,8 @@ import android.util.Log
 import com.n0stalgiaultra.data.remote.CepAPI
 import com.n0stalgiaultra.domain.model.CepDto
 import com.n0stalgiaultra.domain.CepRemoteDataSource
+import com.n0stalgiaultra.domain.mapper.Cep
+import com.n0stalgiaultra.domain.model.CepDto.Companion.mapDtoToCep
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +17,7 @@ class CepRemoteDataSourceImpl(private val api: CepAPI): CepRemoteDataSource {
     override suspend fun getRemoteCep(
         state: String,
         city: String,
-        street: String): List<CepDto> = suspendCoroutine {
+        street: String): List<Cep> = suspendCoroutine {
         continuation ->
             val call: Call<List<CepDto>> = api.getData(state, city, street)
             call.enqueue(
@@ -25,12 +27,13 @@ class CepRemoteDataSourceImpl(private val api: CepAPI): CepRemoteDataSource {
                         response: Response<List<CepDto>>
                     ) {
                         val cep = response.body()
-                        Log.d("remote response", cep.toString())
                         if(cep != null){
                             continuation.resume(
-                                cep
+                                cep.map { mapDtoToCep(it) }
                             )
                         }
+                        else
+                            continuation.resume(emptyList())
                         Log.d("remote response", "Success")
                     }
 
@@ -43,7 +46,7 @@ class CepRemoteDataSourceImpl(private val api: CepAPI): CepRemoteDataSource {
             )
         }
 
-    override suspend fun getCepData(cep: String): CepDto = suspendCoroutine {
+    override suspend fun getCepData(cep: String): Cep = suspendCoroutine {
             continuation ->
             val call: Call<CepDto> = api.getData(cep)
             call.enqueue(
@@ -53,12 +56,10 @@ class CepRemoteDataSourceImpl(private val api: CepAPI): CepRemoteDataSource {
                         response: Response<CepDto>
                     ) {
                         val cep = response.body()
-                        Log.d("remote response", cep.toString())
                         if(cep != null){
-                            continuation.resume(
-                                cep
-                            )
+                            continuation.resume(mapDtoToCep(cep))
                         }
+
                         Log.d("remote response", "Success")
                     }
 

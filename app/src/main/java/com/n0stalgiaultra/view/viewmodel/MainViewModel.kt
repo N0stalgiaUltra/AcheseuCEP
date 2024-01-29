@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.n0stalgiaultra.domain.model.CepDto
 import com.n0stalgiaultra.database.entity.CepLocal
+import com.n0stalgiaultra.domain.mapper.Cep
 import com.n0stalgiaultra.domain.usecase.FavoriteCepUseCase
 import com.n0stalgiaultra.domain.usecase.GetCepUseCase
 import com.n0stalgiaultra.domain.usecase.GetDataFromCepUseCase
@@ -24,11 +26,12 @@ class MainViewModel(
     private val getDataFromCepUseCase: GetDataFromCepUseCase,
     private val getFavoriteDataUseCase: GetFavoriteDataUseCase): ViewModel(){
 
-    private val _cepList = MutableLiveData<List<CepDto>>()
-    val cepList: LiveData<List<CepDto>> get() = _cepList
+    private val _cepList = MutableLiveData<List<Cep>>()
+    val cepList: LiveData<List<Cep>> get() = _cepList
 
-    private val _localCepList = MutableLiveData<List<CepLocal>>()
-    val localCepList: LiveData<List<CepLocal>> get() = _localCepList
+    private val _localCepList = MutableLiveData<List<Cep>>()
+    val localCepList: LiveData<List<Cep>> get() = _localCepList
+
 
 
     suspend fun getCepList(state: String, city: String, street: String){
@@ -45,6 +48,7 @@ class MainViewModel(
     @OptIn(DelicateCoroutinesApi::class)
     fun getFavoriteItems(){
         _localCepList.value = listOf()
+        //Não pode ser viewModelScope
         GlobalScope.launch {
             val localData = getFavoriteDataUseCase.invoke()
             withContext(Dispatchers.Main) {
@@ -54,10 +58,10 @@ class MainViewModel(
 
     }
 
-    suspend fun favoriteItem(item: CepDto){
+    suspend fun favoriteItem(item: Cep){
         favoriteCepUseCase.invoke(item)
     }
-    suspend fun unFavoriteItem(item: Any) {
+    suspend fun unFavoriteItem(item: Cep) {
         unfavoriteCepUseCase.invoke(item)
     }
 

@@ -4,28 +4,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.n0stalgiaultra.domain.model.CepDto
-import com.n0stalgiaultra.database.entity.CepLocal
+import com.n0stalgiaultra.domain.mapper.Cep
 import com.n0stalgiaultra.myapplication.databinding.CardItemBinding
 
 class CardAdapter(private val cardOnClick: CardOnClick,
                   private val isLocal: Boolean = false): RecyclerView.Adapter<CardViewHolder>(){
 
-    private var _data = emptyList<CepDto>()
-    private var _localData = emptyList<CepLocal>()
+    private var _remoteData = emptyList<Cep>()
+    private var _localData = emptyList<Cep>()
     fun clearData(){
-        //_localData = emptyList()
-        _data = emptyList()
+        _remoteData = emptyList<Cep>()
     }
 
-    fun setData(data: List<CepDto>){
-        _data = data
+    fun setData(data: List<Cep>){
+        _remoteData = data
     }
-    fun setLocalData(data: List<CepLocal>){
+    fun setLocalData(data: List<Cep>){
         _localData = data
     }
 
-    private fun checkFavorite(data: CepDto): Boolean{
+    private fun checkFavorite(data: Cep): Boolean{
         for (localItem in _localData){
             if(data.cep == localItem.cep)
                 return true
@@ -39,10 +37,11 @@ class CardAdapter(private val cardOnClick: CardOnClick,
     }
 
     override fun getItemCount(): Int {
-        return _data.size + _localData.size
+        return _remoteData.size + _localData.size
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
+
         if(isLocal){
             if(_localData.isNotEmpty()){
                 val data = _localData[position]
@@ -51,8 +50,8 @@ class CardAdapter(private val cardOnClick: CardOnClick,
             }
         }
         else{
-            if(_data.isNotEmpty()){
-                val data = _data[position]
+            if(_remoteData.isNotEmpty()){
+                val data = _remoteData[position]
                 val fav = checkFavorite(data)
                 Log.d("CardAdapter", data.logradouro)
                 holder.bindData(data, fav)

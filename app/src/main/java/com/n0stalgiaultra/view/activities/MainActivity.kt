@@ -1,19 +1,12 @@
 package com.n0stalgiaultra.view.activities
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
+import com.n0stalgiaultra.database.utils.FragmentIdHandler
 import com.n0stalgiaultra.myapplication.R
-import com.n0stalgiaultra.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {

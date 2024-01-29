@@ -8,7 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdk 25
+        minSdk 24
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -21,11 +21,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
@@ -34,8 +34,10 @@ dependencies {
     def dependencies = rootProject.ext.dependencies
     implementation dependencies.coroutineCore
     implementation dependencies.coroutineAndroid
-    implementation dependencies.moshiKotlin
-    implementation dependencies.retrofit2ConverterMoshi
+    implementation  dependencies.retrofit2Retrofit
+    implementation  dependencies.gsonConverter
+    implementation  dependencies.okHttp
+    implementation  dependencies.retrofitCoroutines
 
     testImplementation testJunit
     testImplementation testMockk

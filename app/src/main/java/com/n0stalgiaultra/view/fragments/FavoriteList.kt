@@ -6,16 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.n0stalgiaultra.myapplication.databinding.FragmentFavoriteListBinding
 import com.n0stalgiaultra.view.adapters.CardAdapter
 import com.n0stalgiaultra.view.adapters.CardOnClickImpl
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteList : Fragment() {
 
-    private val mainViewModel: MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModel()
     private lateinit var binding: FragmentFavoriteListBinding
 
     private val cardOnClick by lazy { CardOnClickImpl(mainViewModel) }

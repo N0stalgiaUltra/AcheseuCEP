@@ -55,7 +55,7 @@ tools:context="com.n0stalgiaultra.view.fragments.CepResult">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/loading_screen"
-        android:visibility="visible"
+        android:visibility="gone"
         >
 
         <include

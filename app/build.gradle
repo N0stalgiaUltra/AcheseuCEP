@@ -105,11 +105,11 @@ dependencies {
     implementation dependencies.koinCore
     implementation dependencies.koinAndroid
 
-
     //Retrofit + Moshi + ConverterMoshi
     implementation  dependencies.retrofit2Retrofit
-    implementation  dependencies.moshiKotlin
-    implementation  dependencies.retrofit2ConverterMoshi
+    implementation  dependencies.gsonConverter
+    implementation  dependencies.okHttp
+    implementation  dependencies.retrofitCoroutines
 
     //Room
     def room_version = "2.5.2"

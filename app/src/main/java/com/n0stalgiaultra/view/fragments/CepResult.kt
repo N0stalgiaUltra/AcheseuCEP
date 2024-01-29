@@ -8,17 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.n0stalgiaultra.database.utils.FragmentIdHandler
 import com.n0stalgiaultra.myapplication.R
 import com.n0stalgiaultra.myapplication.databinding.FragmentCepResultBinding
-import com.n0stalgiaultra.utils.FragmentIdHandler
 import com.n0stalgiaultra.view.adapters.CardAdapter
 import com.n0stalgiaultra.view.adapters.CardOnClickImpl
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
 class CepResult : Fragment() {
 
-    private val mainViewModel: MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModel()
     private lateinit var idHandler : FragmentIdHandler
 
     private lateinit var binding: FragmentCepResultBinding
@@ -28,7 +29,7 @@ class CepResult : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         idHandler = FragmentIdHandler(requireActivity())
-        Log.d("SearchCep", idHandler.getID().toString())
+        Log.d("CepResult", idHandler.getID().toString())
 
 
     }
@@ -47,7 +48,7 @@ class CepResult : Fragment() {
         mainViewModel.cepList.observe(viewLifecycleOwner){
             items ->
                 if(items.isNotEmpty()){
-                Log.d("CepResult", cardAdapter.itemCount.toString())
+                    Log.d("CepResult", cardAdapter.itemCount.toString())
                     cardAdapter.clearData()
                     cardAdapter.setData(items)
                     setupRecyclerView()
