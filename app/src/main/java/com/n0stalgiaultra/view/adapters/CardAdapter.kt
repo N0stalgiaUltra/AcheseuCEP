@@ -31,6 +31,7 @@ class CardAdapter(private val cardOnClick: CardOnClick,
         for (localItem in _localData){
             Log.d("CardAdapter", localItem.cep)
             if(data.cep == localItem.cep) {
+                data.id = localItem.id
                 return true
             }
         }
