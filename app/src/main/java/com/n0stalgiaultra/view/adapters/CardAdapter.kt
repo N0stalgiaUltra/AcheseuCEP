@@ -13,20 +13,26 @@ class CardAdapter(private val cardOnClick: CardOnClick,
     private var _remoteData = emptyList<Cep>()
     private var _localData = emptyList<Cep>()
     fun clearData(){
-        _remoteData = emptyList<Cep>()
+        _remoteData = emptyList()
     }
 
-    fun setData(data: List<Cep>){
+    fun setRemoteData(data: List<Cep>){
         _remoteData = data
     }
     fun setLocalData(data: List<Cep>){
         _localData = data
+        Log.d("CardAdapter", _localData.size.toString())
     }
 
     private fun checkFavorite(data: Cep): Boolean{
+        Log.d("CardAdapter", "Entrando no CheckFav")
+        Log.d("CardAdapter", _localData.size.toString())
+
         for (localItem in _localData){
-            if(data.cep == localItem.cep)
+            Log.d("CardAdapter", localItem.cep)
+            if(data.cep == localItem.cep) {
                 return true
+            }
         }
         return false
     }
@@ -37,27 +43,34 @@ class CardAdapter(private val cardOnClick: CardOnClick,
     }
 
     override fun getItemCount(): Int {
-        return _remoteData.size + _localData.size
+        if(isLocal)
+            return _localData.size
+        else
+            return _remoteData.size
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-
-        if(isLocal){
-            if(_localData.isNotEmpty()){
-                val data = _localData[position]
-                Log.d("CardAdapter", data.logradouro)
-                holder.bindData(data, true)
-            }
-        }
-        else{
-            if(_remoteData.isNotEmpty()){
-                val data = _remoteData[position]
-                val fav = checkFavorite(data)
-                Log.d("CardAdapter", data.logradouro)
-                holder.bindData(data, fav)
-            }
+        val data = if (isLocal) {
+            _localData[position]
+        } else {
+            _remoteData[position]
         }
 
+        val fav = checkFavorite(data)
+        holder.bindData(data, fav)
+//        if(_localData.isNotEmpty()){
+//            val data = _localData[position]
+//            holder.bindData(data, true)
+//        }
+//        else if(_remoteData.isNotEmpty()){
+//            val data = _remoteData[position]
+//            Log.d("CardAdapter", data.cep.toString() + " " + data.logradouro)
+//
+//            val fav = checkFavorite(data)
+//            Log.d("CardAdapter", fav.toString())
+//            holder.bindData(data, fav)
+//        }
+//        else return
     }
 }
 

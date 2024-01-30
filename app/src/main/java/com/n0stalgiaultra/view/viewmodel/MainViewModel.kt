@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.n0stalgiaultra.domain.model.CepDto
-import com.n0stalgiaultra.database.entity.CepLocal
 import com.n0stalgiaultra.domain.mapper.Cep
 import com.n0stalgiaultra.domain.usecase.FavoriteCepUseCase
 import com.n0stalgiaultra.domain.usecase.GetCepUseCase
@@ -26,23 +24,25 @@ class MainViewModel(
     private val getDataFromCepUseCase: GetDataFromCepUseCase,
     private val getFavoriteDataUseCase: GetFavoriteDataUseCase): ViewModel(){
 
-    private val _cepList = MutableLiveData<List<Cep>>()
-    val cepList: LiveData<List<Cep>> get() = _cepList
+    private val _remoteCepList = MutableLiveData<List<Cep>>()
+    val remoteCepList: LiveData<List<Cep>> get() = _remoteCepList
 
     private val _localCepList = MutableLiveData<List<Cep>>()
     val localCepList: LiveData<List<Cep>> get() = _localCepList
 
-
+    init {
+        getFavoriteItems()
+    }
 
     suspend fun getCepList(state: String, city: String, street: String){
-        _cepList.value = getCepUseCase.invoke(state, city, street)
-        Log.d("ViewModel", "${_cepList.value!!.size}")
+        _remoteCepList.value = getCepUseCase.invoke(state, city, street)
+        Log.d("ViewModel GetRemote", "${_remoteCepList.value!!.size}")
     }
 
     suspend fun getDataFromCep(cep: String){
-        _cepList.value = emptyList()
-        _cepList.value = listOf(getDataFromCepUseCase.invoke(cep))
-        Log.d("ViewModel", "${_cepList.value!!.size}")
+        _remoteCepList.value = emptyList()
+        _remoteCepList.value = listOf(getDataFromCepUseCase.invoke(cep))
+        Log.d("ViewModel Get Remote", "${_remoteCepList.value!!.size}")
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -55,7 +55,6 @@ class MainViewModel(
                 _localCepList.postValue(localData)
             }
         }
-
     }
 
     suspend fun favoriteItem(item: Cep){

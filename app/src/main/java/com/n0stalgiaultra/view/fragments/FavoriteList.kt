@@ -60,7 +60,6 @@ class FavoriteList : Fragment() {
             else{
                 binding.loadingScreen.visibility = View.INVISIBLE
                 Log.d("FavList", "Empty")
-
             }
         }
     }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.n0stalgiaultra.database.utils.FragmentIdHandler
 import com.n0stalgiaultra.myapplication.R
@@ -26,12 +25,11 @@ class CepResult : Fragment() {
     private val cardOnClick by lazy { CardOnClickImpl(mainViewModel) }
     private val cardAdapter by lazy { CardAdapter(cardOnClick) }
 
+    private var isFavoriteItemsFetched = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         idHandler = FragmentIdHandler(requireActivity())
         Log.d("CepResult", idHandler.getID().toString())
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,19 +43,31 @@ class CepResult : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         idHandler.saveID(R.id.cepResult)
-        mainViewModel.cepList.observe(viewLifecycleOwner){
+
+        mainViewModel.localCepList.observe(viewLifecycleOwner){
+            items->
+            if(items.isNotEmpty() && !isFavoriteItemsFetched) {
+//                mainViewModel.getFavoriteItems()
+                cardAdapter.setLocalData(items)
+                isFavoriteItemsFetched = true
+            }
+        }
+
+        mainViewModel.remoteCepList.observe(viewLifecycleOwner){
             items ->
                 if(items.isNotEmpty()){
-                    Log.d("CepResult", cardAdapter.itemCount.toString())
                     cardAdapter.clearData()
-                    cardAdapter.setData(items)
                     setupRecyclerView()
+                    cardAdapter.setRemoteData(items)
                     binding.loadingScreen.visibility = View.INVISIBLE
+                    Log.d("CepResult", cardAdapter.itemCount.toString())
+
                 }
                 else{
                     Log.d("CepResult", "Lista Vazia")
                 }
         }
+
     }
 
     private fun setupRecyclerView(){
