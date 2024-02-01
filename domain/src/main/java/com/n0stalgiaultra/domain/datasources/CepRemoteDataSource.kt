@@ -1,4 +1,4 @@
-package com.n0stalgiaultra.domain
+package com.n0stalgiaultra.domain.datasources
 
 import com.n0stalgiaultra.domain.mapper.Cep
 

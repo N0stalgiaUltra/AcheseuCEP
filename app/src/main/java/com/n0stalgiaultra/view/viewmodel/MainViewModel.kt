@@ -6,11 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.n0stalgiaultra.domain.mapper.Cep
-import com.n0stalgiaultra.domain.usecase.FavoriteCepUseCase
-import com.n0stalgiaultra.domain.usecase.GetCepUseCase
-import com.n0stalgiaultra.domain.usecase.GetDataFromCepUseCase
-import com.n0stalgiaultra.domain.usecase.GetFavoriteDataUseCase
-import com.n0stalgiaultra.domain.usecase.UnfavoriteCepUseCase
+import com.n0stalgiaultra.domain.usecase.cep.FavoriteCepUseCase
+import com.n0stalgiaultra.domain.usecase.cep.GetCepUseCase
+import com.n0stalgiaultra.domain.usecase.cep.GetDataFromCepUseCase
+import com.n0stalgiaultra.domain.usecase.cep.GetFavoriteDataUseCase
+import com.n0stalgiaultra.domain.usecase.cep.UnfavoriteCepUseCase
+import com.n0stalgiaultra.domain.usecase.states.GetStatesUseCase
+import com.n0stalgiaultra.domain.usecase.states.InsertStatesUseCase
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -22,7 +24,10 @@ class MainViewModel(
     private val unfavoriteCepUseCase: UnfavoriteCepUseCase,
     private val getCepUseCase: GetCepUseCase,
     private val getDataFromCepUseCase: GetDataFromCepUseCase,
-    private val getFavoriteDataUseCase: GetFavoriteDataUseCase): ViewModel(){
+    private val getFavoriteDataUseCase: GetFavoriteDataUseCase,
+    private val getStatesUseCase: GetStatesUseCase,
+    private val insertStatesUseCase: InsertStatesUseCase
+): ViewModel(){
 
     private val _remoteCepList = MutableLiveData<List<Cep>>()
     val remoteCepList: LiveData<List<Cep>> get() = _remoteCepList
@@ -30,8 +35,13 @@ class MainViewModel(
     private val _localCepList = MutableLiveData<List<Cep>>()
     val localCepList: LiveData<List<Cep>> get() = _localCepList
 
+    private val _statesList = MutableLiveData<List<String>>()
+    val statesList: LiveData<List<String>> get() = _statesList
+
+    //TODO: SEPARAR A VIEW MODEL PARA CADA FUNCIONALIDADE
     init {
         getFavoriteItems()
+        getStatesList()
     }
 
     suspend fun getCepList(state: String, city: String, street: String){
@@ -64,5 +74,32 @@ class MainViewModel(
         unfavoriteCepUseCase.invoke(item)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
+    fun getStatesList(){
+        _statesList.value = listOf()
+
+        if(!_statesList.value.isNullOrEmpty()) {
+            GlobalScope.launch {
+                withContext(Dispatchers.Main){
+                    val values = getStatesUseCase.invoke()
+                    _statesList.postValue(values)
+                    Log.d("States List", "${_statesList.value!!.size}")
+
+                }
+            }
+        }
+        else{
+            GlobalScope.launch {
+                insertStatesUseCase.invoke()
+                Log.d("States List", "${_statesList.value!!.size}")
+
+            }
+        }
+    }
+
 
 }
+
+// 1- verifica se o banco retorna a lista de estados
+// 2- se não, insere e verifica novamente
+// 3- se sim, retorna a lista.

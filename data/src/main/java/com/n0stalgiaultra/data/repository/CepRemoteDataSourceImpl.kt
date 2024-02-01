@@ -3,7 +3,7 @@ package com.n0stalgiaultra.data.repository
 import android.util.Log
 import com.n0stalgiaultra.data.remote.CepAPI
 import com.n0stalgiaultra.domain.model.CepDto
-import com.n0stalgiaultra.domain.CepRemoteDataSource
+import com.n0stalgiaultra.domain.datasources.CepRemoteDataSource
 import com.n0stalgiaultra.domain.mapper.Cep
 import com.n0stalgiaultra.domain.model.CepDto.Companion.mapDtoToCep
 import retrofit2.Call

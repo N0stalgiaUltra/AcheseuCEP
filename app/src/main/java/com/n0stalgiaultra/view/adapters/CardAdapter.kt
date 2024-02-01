@@ -59,23 +59,5 @@ class CardAdapter(private val cardOnClick: CardOnClick,
 
         val fav = checkFavorite(data)
         holder.bindData(data, fav)
-//        if(_localData.isNotEmpty()){
-//            val data = _localData[position]
-//            holder.bindData(data, true)
-//        }
-//        else if(_remoteData.isNotEmpty()){
-//            val data = _remoteData[position]
-//            Log.d("CardAdapter", data.cep.toString() + " " + data.logradouro)
-//
-//            val fav = checkFavorite(data)
-//            Log.d("CardAdapter", fav.toString())
-//            holder.bindData(data, fav)
-//        }
-//        else return
     }
 }
-
-
-// Favoritar
-// Remoto -> Mostra quem está no Local, e possibilita a chance de adc e remover
-// Local -> Só remove

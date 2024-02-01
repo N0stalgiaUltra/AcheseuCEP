@@ -3,7 +3,7 @@ package com.n0stalgiaultra.myapplication
 import androidx.room.Room
 import com.n0stalgiaultra.data.local.CepLocalDataSourceImpl
 import com.n0stalgiaultra.data.local.TestAppDatabase
-import com.n0stalgiaultra.domain.CepLocalDataSource
+import com.n0stalgiaultra.domain.datasources.CepLocalDataSource
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -24,7 +24,7 @@ val testDatabaseModule = module{
         get<TestAppDatabase>().getDao()
     }
 
-    single<com.n0stalgiaultra.domain.CepLocalDataSource> {
+    single<CepLocalDataSource> {
         CepLocalDataSourceImpl(get())
     }
 }

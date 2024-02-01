@@ -1,12 +1,16 @@
-package com.n0stalgiaultra.domain
+package com.n0stalgiaultra.data.repository
 
+import com.n0stalgiaultra.domain.datasources.CepLocalDataSource
+import com.n0stalgiaultra.domain.datasources.CepRemoteDataSource
 import com.n0stalgiaultra.domain.mapper.Cep
 import com.n0stalgiaultra.domain.repository.CepRepository
+
 
 class CepRepositoryImpl(
     private val localDataSource: CepLocalDataSource,
     private val remoteDataSource: CepRemoteDataSource
 ): CepRepository {
+    // TODO: SEPARAR REPOSITÓRIO EM LOCAL E REMOTO
     override suspend fun getRemoteCep(state: String, city: String, street: String): List<Cep> {
         return remoteDataSource.getRemoteCep(
             state = state,

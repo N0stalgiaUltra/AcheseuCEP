@@ -6,8 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CepAPI {
-    /*TODO: Adicionar chamada com param*/
-
     @GET("{CEP}/json/")
     fun getData(@Path("CEP") CEP: String) : Call<CepDto>
 

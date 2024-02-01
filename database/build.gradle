@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-
 }
 
 android {
@@ -44,6 +43,9 @@ dependencies {
     def dependencies = rootProject.ext.dependencies
     implementation dependencies.roomRuntime
     implementation dependencies.roomKtx
+    implementation dependencies.gsonConverter
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
+
 
     testImplementation testKotlinxCoroutines
     testImplementation testMockk

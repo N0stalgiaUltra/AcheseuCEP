@@ -2,7 +2,7 @@ package com.n0stalgiaultra.myapplication
 
 //import com.n0stalgiaultra.data.local.CepDao
 //import com.n0stalgiaultra.data.local.CepLocal
-//import com.n0stalgiaultra.domain.CepLocalDataSource
+//import com.n0stalgiaultra.domain.datasources.CepLocalDataSource
 //import com.n0stalgiaultra.utils.checkEmptyData
 //import com.n0stalgiaultra.utils.convertToDto
 //import kotlinx.coroutines.runBlocking
@@ -18,7 +18,7 @@ package com.n0stalgiaultra.myapplication
 //class LocalDataSourceUnitTests {
 //
 //    @Mock
-//    lateinit var mockLocalDataSource: com.n0stalgiaultra.domain.CepLocalDataSource
+//    lateinit var mockLocalDataSource: com.n0stalgiaultra.domain.datasources.CepLocalDataSource
 //
 //    @Mock
 //    lateinit var mockCepDao: CepDao

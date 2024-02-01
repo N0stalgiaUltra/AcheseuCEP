@@ -7,15 +7,23 @@ import com.n0stalgiaultra.data.repository.CepRemoteDataSourceImpl
 import com.n0stalgiaultra.database.dao.CepDao
 import com.n0stalgiaultra.database.database.AppDatabase
 import com.n0stalgiaultra.database.repository.CepLocalDataSourceImpl
-import com.n0stalgiaultra.domain.CepLocalDataSource
-import com.n0stalgiaultra.domain.CepRemoteDataSource
-import com.n0stalgiaultra.domain.CepRepositoryImpl
+import com.n0stalgiaultra.domain.datasources.CepLocalDataSource
+import com.n0stalgiaultra.domain.datasources.CepRemoteDataSource
+import com.n0stalgiaultra.data.repository.CepRepositoryImpl
+import com.n0stalgiaultra.database.dao.StatesDao
+import com.n0stalgiaultra.database.database.migration.DatabaseMigration_1_2
+import com.n0stalgiaultra.database.repository.StatesLocalDataSourceImpl
+import com.n0stalgiaultra.database.repository.StatesRepositoryImpl
+import com.n0stalgiaultra.domain.datasources.StatesLocalDataSource
 import com.n0stalgiaultra.domain.repository.CepRepository
-import com.n0stalgiaultra.domain.usecase.FavoriteCepUseCase
-import com.n0stalgiaultra.domain.usecase.GetCepUseCase
-import com.n0stalgiaultra.domain.usecase.GetDataFromCepUseCase
-import com.n0stalgiaultra.domain.usecase.GetFavoriteDataUseCase
-import com.n0stalgiaultra.domain.usecase.UnfavoriteCepUseCase
+import com.n0stalgiaultra.domain.repository.StatesRepository
+import com.n0stalgiaultra.domain.usecase.cep.FavoriteCepUseCase
+import com.n0stalgiaultra.domain.usecase.cep.GetCepUseCase
+import com.n0stalgiaultra.domain.usecase.cep.GetDataFromCepUseCase
+import com.n0stalgiaultra.domain.usecase.cep.GetFavoriteDataUseCase
+import com.n0stalgiaultra.domain.usecase.cep.UnfavoriteCepUseCase
+import com.n0stalgiaultra.domain.usecase.states.GetStatesUseCase
+import com.n0stalgiaultra.domain.usecase.states.InsertStatesUseCase
 import com.n0stalgiaultra.view.viewmodel.MainViewModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -73,12 +81,16 @@ val appModule = module{
             context = androidContext(),
             klass = AppDatabase::class.java,
             name = AppDatabase.DATABASE_NAME
-        ).build()
+        ).addMigrations(DatabaseMigration_1_2(1,2)).build()
+
     }
 
     //Dao
     single {
         get<AppDatabase>().getDao()
+    }
+    single {
+        get<AppDatabase>().getStatesDao()
     }
 
     //RemoteDataSource
@@ -90,12 +102,20 @@ val appModule = module{
     single<CepLocalDataSource>{
         CepLocalDataSourceImpl(dao = get<CepDao>())
     }
+    single<StatesLocalDataSource>{
+        StatesLocalDataSourceImpl(dao = get<StatesDao>())
+    }
 
-    //CepRepository
+    //Repositories
     single <CepRepository>{
         CepRepositoryImpl(
             localDataSource = get<CepLocalDataSource>(),
             remoteDataSource = get<CepRemoteDataSource>()
+        )
+    }
+    single <StatesRepository>{
+        StatesRepositoryImpl(
+            localDataSource = get<StatesLocalDataSource>()
         )
     }
 
@@ -105,6 +125,8 @@ val appModule = module{
     factory { GetDataFromCepUseCase(get<CepRepository>()) }
     factory { UnfavoriteCepUseCase(get<CepRepository>()) }
     factory { GetFavoriteDataUseCase(get<CepRepository>()) }
+    factory { GetStatesUseCase(get<StatesRepository>()) }
+    factory { InsertStatesUseCase(get<StatesRepository>()) }
 
     //ViewModel
     viewModel {
@@ -113,7 +135,8 @@ val appModule = module{
             get<UnfavoriteCepUseCase>(),
             get<GetCepUseCase>(),
             get<GetDataFromCepUseCase>(),
-            get<GetFavoriteDataUseCase>()
+            get<GetFavoriteDataUseCase>(),
+            get(), get()
         )
     }
 }

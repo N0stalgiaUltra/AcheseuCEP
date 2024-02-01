@@ -1,4 +1,4 @@
-package com.n0stalgiaultra.domain.usecase
+package com.n0stalgiaultra.domain.usecase.cep
 
 import com.n0stalgiaultra.domain.mapper.Cep
 import com.n0stalgiaultra.domain.repository.CepRepository

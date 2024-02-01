@@ -1,6 +1,7 @@
 package com.n0stalgiaultra.view.activities
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
@@ -21,6 +22,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         tabLayout = findViewById(R.id.tab_layout)
         idHandler = FragmentIdHandler(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mainViewModel.statesList.observe(this){
+            items ->
+//            Log.d("States List", "${items.size}")
+//            Log.d("States List", items[1])
+        }
+
     }
 
     override fun onResume() {

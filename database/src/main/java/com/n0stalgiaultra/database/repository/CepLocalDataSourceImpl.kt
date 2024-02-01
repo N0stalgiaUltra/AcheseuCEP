@@ -2,13 +2,11 @@ package com.n0stalgiaultra.database.repository
 
 import android.util.Log
 import com.n0stalgiaultra.database.dao.CepDao
-import com.n0stalgiaultra.database.entity.CepLocal
 import com.n0stalgiaultra.database.entity.CepLocal.Companion.mapLocalToCep
-import com.n0stalgiaultra.domain.model.CepDto
 import com.n0stalgiaultra.database.utils.EmptyDataException
 import com.n0stalgiaultra.database.utils.checkEmptyData
 import com.n0stalgiaultra.database.utils.convertToLocal
-import com.n0stalgiaultra.domain.CepLocalDataSource
+import com.n0stalgiaultra.domain.datasources.CepLocalDataSource
 import com.n0stalgiaultra.domain.mapper.Cep
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
