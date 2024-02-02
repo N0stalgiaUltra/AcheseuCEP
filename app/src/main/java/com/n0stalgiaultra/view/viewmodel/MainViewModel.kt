@@ -60,12 +60,14 @@ class MainViewModel(
     @OptIn(DelicateCoroutinesApi::class)
     fun getFavoriteItems(){
         _localCepList.value = listOf()
-        //Não pode ser viewModelScope
-        GlobalScope.launch {
-            val localData = getFavoriteDataUseCase.invoke()
-            withContext(Dispatchers.Main) {
+
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val localData = getFavoriteDataUseCase.invoke()
                 _localCepList.postValue(localData)
+
             }
+
         }
     }
 
