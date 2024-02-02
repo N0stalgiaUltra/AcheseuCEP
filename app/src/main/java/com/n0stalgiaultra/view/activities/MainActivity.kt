@@ -24,15 +24,10 @@ class MainActivity : AppCompatActivity() {
         idHandler = FragmentIdHandler(this)
     }
 
-    override fun onStart() {
-        super.onStart()
-        mainViewModel.statesList.observe(this){
-            items ->
-//            Log.d("States List", "${items.size}")
-//            Log.d("States List", items[1])
-        }
-
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//    }
 
     override fun onResume() {
         super.onResume()

@@ -1,9 +1,13 @@
 package com.n0stalgiaultra.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -46,8 +50,10 @@ class AdvancedSearchCep : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         idHandler.saveID(R.id.advancedSearchCep)
+
+        setSpinner()
         binding.btnBuscaCEP.setOnClickListener {
-            state = binding.etEstado.text.toString()
+            //state = binding.etEstado.text.toString()
             city = binding.etCidade.text.toString()
             street = binding.etRua.text.toString()
 
@@ -59,4 +65,39 @@ class AdvancedSearchCep : Fragment() {
         }
     }
 
+    private fun setSpinner(){
+        mainViewModel.statesList.observe(viewLifecycleOwner){
+            items ->
+
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                items)
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            binding.stateSpinner.adapter = adapter
+            binding.stateSpinner.setSelection(0, false)
+            
+            binding.stateSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parentView: AdapterView<*>?,
+                    selectedItem: View?,
+                    position: Int, id: Long) {
+
+                    if(position > 0){
+                        val selectedState = items[position]
+                        state = selectedState
+                    }
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+        }
+
+
+    }
 }

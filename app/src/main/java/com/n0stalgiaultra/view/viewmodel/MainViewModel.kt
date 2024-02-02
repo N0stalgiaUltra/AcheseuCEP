@@ -91,6 +91,8 @@ class MainViewModel(
         else{
             GlobalScope.launch {
                 insertStatesUseCase.invoke()
+                val values = getStatesUseCase.invoke()
+                _statesList.postValue(values)
                 Log.d("States List", "${_statesList.value!!.size}")
 
             }
@@ -99,7 +101,3 @@ class MainViewModel(
 
 
 }
-
-// 1- verifica se o banco retorna a lista de estados
-// 2- se não, insere e verifica novamente
-// 3- se sim, retorna a lista.
