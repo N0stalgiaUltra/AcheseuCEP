@@ -68,7 +68,7 @@ class AdvancedSearchCep : Fragment() {
     private fun setSpinner(){
         mainViewModel.statesList.observe(viewLifecycleOwner){
             items ->
-
+            Log.d("StateList", items.size.toString())
             val adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_dropdown_item,

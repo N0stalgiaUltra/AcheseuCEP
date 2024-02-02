@@ -10,7 +10,7 @@ import com.n0stalgiaultra.domain.entities.States
 @Dao
 interface StatesDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(data: StatesLocal)
 
     @Query("SELECT * from StatesLocal")

@@ -39,8 +39,10 @@ class MainViewModel(
     val statesList: LiveData<List<String>> get() = _statesList
 
     //TODO: SEPARAR A VIEW MODEL PARA CADA FUNCIONALIDADE
+    //TODO: Adicionar Logica de favoritar ao VM e implementar
     init {
         getFavoriteItems()
+
         getStatesList()
     }
 
@@ -75,29 +77,33 @@ class MainViewModel(
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    fun getStatesList(){
+    private fun getStatesList(){
         _statesList.value = listOf()
 
-        if(!_statesList.value.isNullOrEmpty()) {
-            GlobalScope.launch {
-                withContext(Dispatchers.Main){
-                    val values = getStatesUseCase.invoke()
-                    _statesList.postValue(values)
-                    Log.d("States List", "${_statesList.value!!.size}")
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val result = getStatesUseCase.invoke()
 
+                if (result.isEmpty()) {
+                    insertStatesList()
+                    updateStatesList(getStatesUseCase.invoke())
+                } else {
+                    updateStatesList(result)
                 }
-            }
-        }
-        else{
-            GlobalScope.launch {
-                insertStatesUseCase.invoke()
-                val values = getStatesUseCase.invoke()
-                _statesList.postValue(values)
-                Log.d("States List", "${_statesList.value!!.size}")
-
             }
         }
     }
 
+    private suspend fun insertStatesList(){
+        insertStatesUseCase.invoke()
+    }
 
+    private fun updateStatesList(data: List<String>){
+        viewModelScope.launch {
+            withContext(Dispatchers.Main)
+            {
+                _statesList.postValue(data)
+            }
+        }
+    }
 }
