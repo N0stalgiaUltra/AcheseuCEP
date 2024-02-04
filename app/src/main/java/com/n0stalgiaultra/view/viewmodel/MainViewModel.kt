@@ -42,7 +42,6 @@ class MainViewModel(
     //TODO: Adicionar Logica de favoritar ao VM e implementar
     init {
         getFavoriteItems()
-
         getStatesList()
     }
 
@@ -53,7 +52,7 @@ class MainViewModel(
 
     suspend fun getDataFromCep(cep: String){
         _remoteCepList.value = emptyList()
-        _remoteCepList.value = listOf(getDataFromCepUseCase.invoke(cep))
+        _remoteCepList.value = listOf(getDataFromCepUseCase(cep))
         Log.d("ViewModel Get Remote", "${_remoteCepList.value!!.size}")
     }
 
@@ -63,19 +62,24 @@ class MainViewModel(
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val localData = getFavoriteDataUseCase.invoke()
+                val localData = getFavoriteDataUseCase()
                 _localCepList.postValue(localData)
-
             }
-
         }
     }
 
     suspend fun favoriteItem(item: Cep){
-        favoriteCepUseCase.invoke(item)
+        favoriteCepUseCase(item)
     }
-    suspend fun unFavoriteItem(item: Cep) {
-        unfavoriteCepUseCase.invoke(item)
+    
+    /// TODO: AO DESFAVORITAR ITEM, PRECISA REMOVER IMEDIATAMENTE DO BD
+    fun unFavoriteItem(item: Cep) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                unfavoriteCepUseCase(item)
+            }
+        }
+
     }
 
     @OptIn(DelicateCoroutinesApi::class)
@@ -84,11 +88,11 @@ class MainViewModel(
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                val result = getStatesUseCase.invoke()
+                val result = getStatesUseCase()
 
                 if (result.isEmpty()) {
                     insertStatesList()
-                    updateStatesList(getStatesUseCase.invoke())
+                    updateStatesList(getStatesUseCase())
                 } else {
                     updateStatesList(result)
                 }
@@ -97,7 +101,7 @@ class MainViewModel(
     }
 
     private suspend fun insertStatesList(){
-        insertStatesUseCase.invoke()
+        insertStatesUseCase()
     }
 
     private fun updateStatesList(data: List<String>){

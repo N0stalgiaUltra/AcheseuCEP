@@ -56,7 +56,6 @@ class CepResult : Fragment() {
         mainViewModel.remoteCepList.observe(viewLifecycleOwner){
             items ->
                 if(items.isNotEmpty()){
-                    cardAdapter.clearData()
                     setupRecyclerView()
                     cardAdapter.setRemoteData(items)
                     binding.loadingScreen.visibility = View.INVISIBLE

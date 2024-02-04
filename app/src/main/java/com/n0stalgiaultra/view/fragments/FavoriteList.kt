@@ -47,10 +47,8 @@ class FavoriteList : Fragment() {
 
         mainViewModel.localCepList.observe(viewLifecycleOwner){
             favItems ->
+            Log.d("FavItems", favItems.size.toString())
             if(favItems.isNotEmpty()){
-                Log.d("FavList", "${favItems[0].logradouro}")
-
-                cardAdapter.clearData()
                 cardAdapter.setLocalData(favItems)
                 setupRecyclerView()
                 binding.favEmptyText.visibility = View.INVISIBLE
@@ -59,7 +57,6 @@ class FavoriteList : Fragment() {
             }
             else{
                 binding.loadingScreen.visibility = View.INVISIBLE
-                Log.d("FavList", "Empty")
             }
         }
     }
