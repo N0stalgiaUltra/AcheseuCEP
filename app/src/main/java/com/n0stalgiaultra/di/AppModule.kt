@@ -4,16 +4,16 @@ import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.n0stalgiaultra.data.remote.CepAPI
 import com.n0stalgiaultra.data.repository.CepRemoteDataSourceImpl
-import com.n0stalgiaultra.database.dao.CepDao
-import com.n0stalgiaultra.database.database.AppDatabase
-import com.n0stalgiaultra.database.repository.CepLocalDataSourceImpl
-import com.n0stalgiaultra.domain.datasources.CepLocalDataSource
-import com.n0stalgiaultra.domain.datasources.CepRemoteDataSource
 import com.n0stalgiaultra.data.repository.CepRepositoryImpl
+import com.n0stalgiaultra.database.dao.CepDao
 import com.n0stalgiaultra.database.dao.StatesDao
-import com.n0stalgiaultra.database.database.migration.DatabaseMigration_1_2
+import com.n0stalgiaultra.database.database.AppDatabase
+import com.n0stalgiaultra.database.database.migration.DatabaseMigration_2_3
+import com.n0stalgiaultra.database.repository.CepLocalDataSourceImpl
 import com.n0stalgiaultra.database.repository.StatesLocalDataSourceImpl
 import com.n0stalgiaultra.database.repository.StatesRepositoryImpl
+import com.n0stalgiaultra.domain.datasources.CepLocalDataSource
+import com.n0stalgiaultra.domain.datasources.CepRemoteDataSource
 import com.n0stalgiaultra.domain.datasources.StatesLocalDataSource
 import com.n0stalgiaultra.domain.repository.CepRepository
 import com.n0stalgiaultra.domain.repository.StatesRepository
@@ -81,7 +81,7 @@ val appModule = module{
             context = androidContext(),
             klass = AppDatabase::class.java,
             name = AppDatabase.DATABASE_NAME
-        ).addMigrations(DatabaseMigration_1_2(1,2)).build()
+        ).addMigrations(DatabaseMigration_2_3(2,3)).build()
 
     }
 

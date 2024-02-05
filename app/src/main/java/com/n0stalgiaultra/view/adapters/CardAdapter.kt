@@ -41,7 +41,6 @@ class CardAdapter(private val cardOnClick: CardOnClick,
     private fun checkFavorite(data: Cep): Boolean{
         for (localItem in asyncLocalListDiffer.currentList){
             if(data.cep == localItem.cep) {
-                data.id = localItem.id
                 return true
             }
         }

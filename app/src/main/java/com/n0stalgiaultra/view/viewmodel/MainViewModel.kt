@@ -68,8 +68,12 @@ class MainViewModel(
         }
     }
 
-    suspend fun favoriteItem(item: Cep){
-        favoriteCepUseCase(item)
+    fun favoriteItem(item: Cep){
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                favoriteCepUseCase(item)
+            }
+        }
     }
     
     /// TODO: AO DESFAVORITAR ITEM, PRECISA REMOVER IMEDIATAMENTE DO BD
@@ -80,7 +84,7 @@ class MainViewModel(
             }
 
             _localCepList.value = _localCepList.value?.filter {
-                it.id != item.id
+                it.cep != item.cep
             }
         }
 

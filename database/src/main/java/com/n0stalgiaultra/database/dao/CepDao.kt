@@ -11,13 +11,13 @@ interface CepDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertCard(card: CepLocal)
 
-    @Query("SELECT * FROM CepLocal where card_id = :id")
-    fun getCard(id: Int) : CepLocal
+    @Query("SELECT * FROM CepLocal where cep = :cep")
+    fun getCard(cep: String) : CepLocal
 
     @Query("SELECT * FROM CepLocal")
     fun getAllCards() : List<CepLocal>
 
-    @Query("DELETE FROM CepLocal where card_id = :id")
-    fun deleteCard(id: Int)
+    @Query("DELETE FROM CepLocal where cep = :cep")
+    fun deleteCard(cep: String)
 
 }

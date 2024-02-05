@@ -17,7 +17,6 @@ data class CepDto(
     companion object{
         fun mapDtoToCep(cepDto: CepDto): Cep {
             return Cep(
-                null,
                 cepDto.cep,
                 cepDto.logradouro,
                 cepDto.bairro,

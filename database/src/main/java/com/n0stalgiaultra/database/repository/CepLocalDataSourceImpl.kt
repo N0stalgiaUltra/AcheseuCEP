@@ -29,31 +29,16 @@ class CepLocalDataSourceImpl(val dao: CepDao): CepLocalDataSource {
             Log.e("Error", e.message?: "an error occurred")
         }
     }
+    //ele tá chamando o Remove mais de uma vez
 
-
-    //se o id do remove for null, é pq é item dto.
-    //se não, é pq é item local
+    // item ja adicionado local
+    // recupera dado remoto
+    // se tiver favoritado, consegue remover facil
+    // senão, quebra com nullref
     override fun remove(item: Cep) {
-        val itemId = item.id
-
-        if(itemId != null) {
-            CoroutineScope(Dispatchers.IO).launch {
-                val localCep = dao.getCard(itemId)
-                dao.deleteCard(localCep.id)
-            }
-        }
-        else{
-            try{
-                if(checkEmptyData(item)) {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        val localCep = dao.getCard(convertToLocal(item).id)
-                        dao.deleteCard(localCep.id)
-                    }
-                }
-            }
-            catch (e: EmptyDataException){
-                Log.e("Error", e.message ?: "an error occurred")
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            val localCep = dao.getCard(item.cep)
+            dao.deleteCard(localCep.cep)
         }
     }
 

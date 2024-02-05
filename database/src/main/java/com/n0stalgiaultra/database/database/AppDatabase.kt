@@ -13,7 +13,7 @@ import com.n0stalgiaultra.database.entity.StatesLocal
 import com.n0stalgiaultra.database.utils.StringListConverter
 
 @TypeConverters(StringListConverter::class)
-@Database(entities = [CepLocal::class, StatesLocal::class], version = 2)
+@Database(entities = [CepLocal::class, StatesLocal::class], version = 3)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun getDao(): CepDao
     abstract fun getStatesDao(): StatesDao
