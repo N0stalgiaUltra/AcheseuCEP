@@ -78,6 +78,10 @@ class MainViewModel(
             withContext(Dispatchers.IO){
                 unfavoriteCepUseCase(item)
             }
+
+            _localCepList.value = _localCepList.value?.filter {
+                it.id != item.id
+            }
         }
 
     }

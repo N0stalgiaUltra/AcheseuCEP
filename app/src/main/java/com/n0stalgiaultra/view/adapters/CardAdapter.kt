@@ -35,8 +35,6 @@ class CardAdapter(private val cardOnClick: CardOnClick,
     }
     fun setLocalData(data: List<Cep>){
         asyncLocalListDiffer.submitList(data)
-        // _localData = data
-        Log.d("CardAdapter", asyncLocalListDiffer.currentList.size.toString())
     }
 
     // TODO: MOVER ESSA VERIFICAÇÃO PARA A VIEW MODEL ADEQUADA
