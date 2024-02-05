@@ -39,12 +39,7 @@ class CardAdapter(private val cardOnClick: CardOnClick,
 
     // TODO: MOVER ESSA VERIFICAÇÃO PARA A VIEW MODEL ADEQUADA
     private fun checkFavorite(data: Cep): Boolean{
-        for (localItem in asyncLocalListDiffer.currentList){
-            if(data.cep == localItem.cep) {
-                return true
-            }
-        }
-        return false
+        return asyncLocalListDiffer.currentList.any { it.cep == data.cep }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -67,7 +62,9 @@ class CardAdapter(private val cardOnClick: CardOnClick,
             asyncRemoteListDiffer.currentList[position]
         }
 
-        val fav = checkFavorite(data)
-        holder.bindData(data, fav)
+        data?.let {
+            val fav = checkFavorite(data)
+            holder.bindData(data, fav)
+        }
     }
 }

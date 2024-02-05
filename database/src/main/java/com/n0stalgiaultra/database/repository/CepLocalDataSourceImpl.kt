@@ -37,8 +37,8 @@ class CepLocalDataSourceImpl(val dao: CepDao): CepLocalDataSource {
     // senão, quebra com nullref
     override fun remove(item: Cep) {
         CoroutineScope(Dispatchers.IO).launch {
-            val localCep = dao.getCard(item.cep)
-            dao.deleteCard(localCep.cep)
+            val localCep = dao.getCard(item.cep) //verifica se está no banco
+            dao.deleteCard(localCep.cep)    // se sim, deleta
         }
     }
 
