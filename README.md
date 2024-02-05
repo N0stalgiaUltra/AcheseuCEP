@@ -22,9 +22,9 @@ Ache seu CEP é um app desenvolvido para Android de maneira nativa com Kotlin. O
 </br>
 
 <p float="left" align="center">
-  <img alt="screenshot" width="30%" src=""/>
-  <img alt="screenshot" width="30%" src=""/>
-  <img alt="screenshot" width="30%" src=""/>
+  <img alt="screenshot" width="30%" src="https://github.com/N0stalgiaUltra/AcheseuCEP/blob/main/screenshots/main_menu.png"/>
+  <img alt="screenshot" width="30%" src="https://github.com/N0stalgiaUltra/AcheseuCEP/blob/main/screenshots/searchCep.png"/>
+  <img alt="screenshot" width="30%" src="https://github.com/N0stalgiaUltra/AcheseuCEP/blob/main/screenshots/fav_tab.png"/>
 </p>
 
 ## Download
@@ -39,6 +39,7 @@ App ainda não está disponível para download.
 
 - [Jetpack](https://developer.android.com/jetpack?hl=pt-br)
   - Live Data: Usado para observar dados de maneira reativa, permitindo que os dados utilizados da camada de view sejam atualizados de maneira automática.
+  - Corrotinas: Padrão de projeto utilizado para executar tarefas assincronas simultaneamente. 
   - Lifecycle: Observa o ciclo de vida do Android e manipula estados da UI após cada mudança no ciclo de vida.
   - Fragments: Um Fragment representa o comportamento ou uma parte da interface do usuário em um Activity.
   - Navigation: A navegação se refere às interações que permitem aos usuários navegar, entrar e sair de diferentes partes do conteúdo no aplicativo.
@@ -55,6 +56,8 @@ App ainda não está disponível para download.
   - [Retrofit & OkHttp](https://square.github.io/retrofit/): Utilizado para se comunicar com uma API RESTful e desserializar os dados.
   - [Koin](https://insert-koin.io/): Utilizado para Injeção de Dependência
   - [SDP](https://github.com/intuit/sdp): Uma biblioteca Android que providencia um novo tipo de unidade de tamanho, que é escalavel com o tamanho das telas, abrangendo diversos tipos de dispositivos.
+  - [Mockk](https://mockk.io/): Biblioteca de Mock para Kotlin, utilizado em Testes Unitários
+  - [JUnit](https://junit.org/junit5/): Framework de testes em Java e JVM
 
 ## Architecture/Arquitetura
 **AcheSeuCepAPP** foi desenvolvido utilizando MVVM, Clean Architecture e o Repository pattern. Seguindo a [Recomendação oficial da Google](https://developer.android.com/topic/architecture)
@@ -68,20 +71,23 @@ App ainda não está disponível para download.
 ## Features/Funcionalidades
 
 ### Busque por um CEP específico
-<img alt="screenshot" width="25%" src=""/>
+<img alt="search_cep" width="25%" src="https://github.com/N0stalgiaUltra/AcheseuCEP/blob/main/screenshots/searchCepGIF.gif"/>
 
-List of all teams created with a Custom adapter to Spinner. The data is gathered from a API, cached to the local database and then displayed to the user.  
-
+Realiza uma busca aos dados remotos, retornando as informações relacionadas a um cep inserido.
 
 ### Busque por um CEP de um endereço
-<img src="" width="25%"/>
+<img alt="advanced_search" src="https://github.com/N0stalgiaUltra/AcheseuCEP/blob/main/screenshots/advancedSearchCep.gif" width="25%"/>
 
-Users can check the overall wins and ties from a duel, also there are cards with the latests scores, displayed by Recycler View and Live Data.
+Realiza uma busca aos dados remotos com outros dados de entrada, sendo eles: Estado (providenciado pelo App), Cidade e Nome da Rua. 
+Caso o usuário não saiba o nome completo da rua, a busca exibirá todas as ruas que contiverem o nome inserido.
+
 
 ### Salve os CEPs/Endereços favoritos
-<img src="" width="25%"/>
+<img alt="favorite_cep" src="https://github.com/N0stalgiaUltra/AcheseuCEP/blob/main/screenshots/fav_tab.png" width="25%"/>
 
-Users can check the overall wins and ties from a duel, also there are cards with the latests scores, displayed by Recycler View and Live Data.
+Usuários podem salvar as informações dos CEPs favoritos de maneira local, não precisando do acesso à internet ou ao banco para consultar suas informações!
+## Testes
+Os testes unitários e instrumentados serão inseridos no projeto e adicionados à um arquivo .md à parte! 
 
 
 # License
